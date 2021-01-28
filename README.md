@@ -2,7 +2,7 @@
 Playing Python Games in Unity
 
 
-#How to Use
+# How to Use
 
 In the scene QisgeMain is a simple example (SimpleExample) which is a unityscript which simmulates python communication, use that for reference to implement a python script.
 
