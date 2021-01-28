@@ -23,6 +23,8 @@ or other data needed in the game.
 
 The run.py will automatically be started when the unity scene runs. If you want to use the pythonfile for communication instead of the unity example, just deactivate the object "SimpleExample"
 
+If python is used to read the input.txt you have to make sure to replace the file content with an empty string (this is used to make sure that the input was read).
+
 # Test new stuff
 
 The folder Assets/Testing can be used for all kinds of test scripts, since the content will be ignored and not commited.
