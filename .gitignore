@@ -62,4 +62,5 @@ crashlytics-build.properties
 */Testing/*
 */PythonScripts/*
 
-
+#Content of the python environment.
+#*.q/
