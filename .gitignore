@@ -63,3 +63,5 @@ crashlytics-build.properties
 #Content of the python environment.
 #*.q/
 /Assets/StreamingAssets/.q
+Testing
+PythonScripts
