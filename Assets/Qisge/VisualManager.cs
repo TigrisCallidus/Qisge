@@ -108,7 +108,7 @@ public class VisualManager : MonoBehaviour {
         fileName = Path.Combine(GameManager.DataFolder,fileName);
 
         //making sure to read existing png file
-        if (File.Exists(fileName) && fileName.EndsWith(".png")) {
+        if (File.Exists(fileName) && fileName.EndsWith(".png") ) {
 
             //Load texture from file
             data = File.ReadAllBytes(fileName);
@@ -117,6 +117,16 @@ public class VisualManager : MonoBehaviour {
             texture.name = fileName;
             //The correct size will be set correctly here
             texture.LoadImage(data);
+        } else if (File.Exists(fileName +".png")) {
+            //Load texture from file
+            data = File.ReadAllBytes(fileName + ".png");
+            //Small values to initialize texture
+            texture = new Texture2D(2, 2);
+            texture.name = fileName;
+            //The correct size will be set correctly here
+            texture.LoadImage(data);
+        } else {
+            Debug.LogError("File does not exist"  + fileName);
         }
 
         //Texture2D tex = new Texture2D(4,4);

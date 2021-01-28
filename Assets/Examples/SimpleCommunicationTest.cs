@@ -15,6 +15,8 @@ public class SimpleCommunicationTest : MonoBehaviour {
     public UpdateFile InitialState;
 
 
+    public bool DoesUpdate = true;
+
     void Start() {
         CreateInitialState();
     }
@@ -24,7 +26,9 @@ public class SimpleCommunicationTest : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        CheckForUpdate();
+        if (DoesUpdate) {
+            CheckForUpdate();
+        }
     }
 
 

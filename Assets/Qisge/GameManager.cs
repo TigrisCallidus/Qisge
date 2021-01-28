@@ -150,6 +150,9 @@ public class GameManager : MonoBehaviour
 
     }
 
+    private void OnDestroy() {
+        pythonJob?.Abort();
+    }
 
 
 

@@ -38,7 +38,7 @@ public class ThreadedJob {
         m_Thread.Start();
     }
     public virtual void Abort() {
-        m_Thread.Abort();
+        m_Thread?.Abort();
     }
 
     protected virtual void ThreadFunction() { }
