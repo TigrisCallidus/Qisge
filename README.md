@@ -22,3 +22,9 @@ In the folder StreaingAssets/Exchange are the specified files, as well as a data
 or other data needed in the game.
 
 The run.py will automatically be started when the unity scene runs. If you want to use the pythonfile for communication instead of the unity example, just deactivate the object "SimpleExample"
+
+# Test new stuff
+
+The folder Assets/Testing can be used for all kinds of test scripts, since the content will be ignored and not commited.
+
+Same with the folder Assets/StreamingAssets/PythonScripts this folder can be used for testing own pythonscripts.
