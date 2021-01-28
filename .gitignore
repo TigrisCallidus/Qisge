@@ -59,8 +59,7 @@ sysinfo.txt
 crashlytics-build.properties
 
 #Testing stuff
-*/Testing/*
-*/PythonScripts/*
 
 #Content of the python environment.
 #*.q/
+/Assets/StreamingAssets/.q
