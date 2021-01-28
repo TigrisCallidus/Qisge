@@ -1,6 +1,12 @@
 # Qisge
 Playing Python Games in Unity
 
+# Installation
+
+Download the project.
+Open it in Unity.
+Add TextMeshPro (Window>PackatManager>TextMeshPro>Install)
+Copy a working python environment into the Folder /Assets/StreamingAssets/.q
 
 # How to Use
 
