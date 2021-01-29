@@ -1228,6 +1228,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 1
   Position: {x: 0, y: 1, z: 0}
+  DoesUpdate: 1
   InitialState:
     image_changes:
     - image_id: 0
@@ -1241,18 +1242,18 @@ MonoBehaviour:
     - image_id: 4
       filename: SquareRed.png
     sprite_changes:
-    - image_id: 0
-      sprite_id: 0
+    - sprite_id: 0
+      image_id: 0
       x: 0
       y: 1
       z: 0
-      size: 1
-      angle: 0
+      size: 3
+      angle: 45
       movement_duration: 0
       alpha: 1
       type: 3
-    - image_id: 2
-      sprite_id: 1
+    - sprite_id: 1
+      image_id: 2
       x: 1
       y: 0
       z: 0
@@ -1261,8 +1262,8 @@ MonoBehaviour:
       movement_duration: 0
       alpha: 1
       type: 2
-    - image_id: 2
-      sprite_id: 2
+    - sprite_id: 2
+      image_id: 2
       x: 2
       y: 0
       z: 0
@@ -1271,8 +1272,8 @@ MonoBehaviour:
       movement_duration: 0
       alpha: 1
       type: 2
-    - image_id: 2
-      sprite_id: 3
+    - sprite_id: 3
+      image_id: 2
       x: 3
       y: 0
       z: 0
@@ -1281,12 +1282,12 @@ MonoBehaviour:
       movement_duration: 0
       alpha: 1
       type: 2
-    - image_id: 2
-      sprite_id: 4
+    - sprite_id: 4
+      image_id: 2
       x: 0
       y: 0
       z: 0
-      size: 0
+      size: 1
       angle: 0
       movement_duration: 0
       alpha: 1

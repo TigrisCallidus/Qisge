@@ -20,6 +20,7 @@ public class PythonJob : ThreadedJob {
     public string PythonPath;
     public string FilePath;
 
+    Process process;
 
     protected override void ThreadFunction() {
         // Do your threaded task. DON'T use the Unity API here
@@ -35,7 +36,7 @@ public class PythonJob : ThreadedJob {
         UnityEngine.Debug.Log("Starting thread");
 
 
-        Process process = new Process();
+        process = new Process();
         string pythonPath = PythonPath;
         string filePath = FilePath;
 
@@ -65,5 +66,11 @@ public class PythonJob : ThreadedJob {
         //Debug.Log(output);
         return output;
         //ReadProbabilities(ref probabilities, output);
+    }
+
+    public override void Abort() {
+        //process?.CloseMainWindow();
+        process?.Kill();
+        base.Abort();
     }
 }

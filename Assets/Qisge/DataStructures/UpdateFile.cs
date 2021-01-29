@@ -18,18 +18,19 @@ public class SpriteChange {
 public class SpritePosition {
 
     //Value between 0-999
-    public int image_id;
     public int sprite_id;
-    public float x = 0;
-    public float y = 0;
-    public float z = 0;
 
-    public float size = 1;
+    public int image_id = -1;
+    public float x = -1;
+    public float y = -1;
+    public float z = -1;
 
-    public float angle = 0;
+    public float size = -1;
 
-    public float movement_duration = 0;
-    public float alpha = 1;
+    public float angle = -1;
+
+    public float movement_duration = -1;
+    public float alpha = -1;
 
     //For level editor and logic.
     public TileType type;
@@ -39,6 +40,7 @@ public class SpritePosition {
 }
 
 public enum TileType {
+    notSet,
     empty,
     background,
     floor,

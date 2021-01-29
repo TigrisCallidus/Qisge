@@ -88,6 +88,10 @@ public class GameManager : MonoBehaviour
         //spriteFilePath = Path.Combine(Application.dataPath, filePath, spriteFile);
         //SpriteFolder = Path.Combine(Application.dataPath, spriteFolder);
         Application.targetFrameRate = 60;
+
+        File.WriteAllText(InputFilePath, string.Empty);
+        File.WriteAllText(SpriteFilePath, string.Empty);
+
     }
 
 
@@ -106,14 +110,20 @@ public class GameManager : MonoBehaviour
     }
 
     public void CheckFiles() {
-        string input = File.ReadAllText(InputFilePath);
-        string sprite = File.ReadAllText(SpriteFilePath);
 
-        if (input.Length==0) {
-            InputFile file = Input.Collect();
-            string json = JsonUtility.ToJson(file);
-            File.WriteAllText(InputFilePath, json);
+        Input.ControlledUpdate();
+
+
+        if (Input.HasInput()) {
+            string input = File.ReadAllText(InputFilePath);
+            if (input.Length == 0) {
+                InputFile file = Input.Collect();
+                string json = JsonUtility.ToJson(file);
+                File.WriteAllText(InputFilePath, json);
+            }
         }
+
+        string sprite = File.ReadAllText(SpriteFilePath);
 
         if (sprite.Length>0) {
             UpdateFile update = JsonUtility.FromJson<UpdateFile>(sprite);

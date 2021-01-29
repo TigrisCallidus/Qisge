@@ -5,42 +5,42 @@ print('runs')
 
 
 
-# from os.path import dirname, abspath, join  
+from os.path import dirname, abspath, join  
 
 
-# def read(filename):
-    # filename=join( dirname(abspath(__file__)), filename)
-    # with open(filename,'r') as file:
-        # return file.read()
+def read(filename):
+    filename=join( dirname(abspath(__file__)), filename)
+    with open(filename,'r') as file:
+        return file.read()
         
-# def write(filename,message):
-    # filename=join( dirname(abspath(__file__)), filename)
-    # with open(filename,'w') as file:
-        # file.write(message)      
+def write(filename,message):
+    filename=join( dirname(abspath(__file__)), filename)
+    with open(filename,'w') as file:
+        file.write(message)      
         
 
 
-# pingFile='ping.txt'
-# pongFile='pong.txt'
+pingFile='input.txt'
+pongFile='sprite.txt'
 
-# ping='ping'
-# pong='pong'
-# empty=''
+ping='ping'
+pong='pong'
+empty=''
 
-# count=0
-# maxcount=100
-# print('start')
+count=0
+maxcount=100
+print('start')
 
 
-# while True:
-    # if read(pingFile)==ping:
+while True:
+    if read(pingFile)==ping:
 
-        # write(pingFile, empty)
-        # write(pongFile, pong)
-        # count=count+1
-        # print('ping found')
-        # if count==maxcount:
-            # break
+        write(pingFile, empty)
+        write(pongFile, pong)
+        count=count+1
+        print('ping found')
+        #if count==maxcount:
+        #    break
 
     
     

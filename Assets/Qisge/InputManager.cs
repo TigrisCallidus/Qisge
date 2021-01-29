@@ -12,15 +12,10 @@ public class InputManager : MonoBehaviour
     List<KeyPress> uniquePresses = new List<KeyPress>();
 
 
-    // Start is called before the first frame update
-    void Start()
+    public void ControlledUpdate()
     {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
+
         if (Input.GetMouseButtonDown(0)) {
             //Debug.Log(Input.mousePosition);
             Clickhappened(Input.mousePosition);
@@ -106,6 +101,13 @@ public class InputManager : MonoBehaviour
         return null;
     }
 
+    int count = 0;
+
+
+    public bool HasInput() {
+        return uniqueClicks.Count > 0 || uniquePresses.Count > 0;
+    }
+
     public InputFile Collect() {
 
         InputFile inputFile = new InputFile();
@@ -117,6 +119,12 @@ public class InputManager : MonoBehaviour
 
         presses.Clear();
         uniquePresses.Clear();
+
+        inputFile.count = count;
+
+        Debug.Log("sending message number: " + count + " at time: " + Time.time);
+
+        count++;
 
         return inputFile;
     }

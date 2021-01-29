@@ -3,7 +3,7 @@
 public class InputFile {
     public KeyPress[] key_presses;
     public ClickInput[] clicks;
-
+    public int count = 0;
 }
 
 public enum KeyPress {
