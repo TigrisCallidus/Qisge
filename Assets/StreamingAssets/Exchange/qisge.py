@@ -41,16 +41,23 @@ class _Engine():
         self.sprite_changes = []
                 
     def get_changes(self):
-                
-        changes = {'image_changes':self.image_changes,'sprite_changes':[]}
+        # read in any changes that have not yet been acted upon
+        changes = _read('sprite.txt')
+        if changes:
+            changes = eval(changes)
+         # otherwise start off 
+        else:
+            # otherwise, start off blank
+            changes = {'image_changes':self.image_changes,'sprite_changes':[]}
+        # add in changes
         for sprite_id, change in enumerate(self.sprite_changes):
             if change:
                 change['sprite_id'] = sprite_id
                 changes['sprite_changes'].append(change)
-    
+        # empty the record of changes
         self.sprite_changes = [{} for _ in range(len(self.sprite_changes))]
         self.image_changes = []
-
+        # output the string of changes
         if changes!={"image_changes": [], "sprite_changes": []}:
             return json.dumps(changes)
         else:
