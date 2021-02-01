@@ -41,16 +41,23 @@ class _Engine():
         self.sprite_changes = []
                 
     def get_changes(self):
-                
-        changes = {'image_changes':self.image_changes,'sprite_changes':[]}
+        # read in any changes that have not yet been acted upon
+        changes = _read('sprite.txt')
+        if changes:
+            changes = eval(changes)
+         # otherwise start off 
+        else:
+            # otherwise, start off blank
+            changes = {'image_changes':self.image_changes,'sprite_changes':[]}
+        # add in changes
         for sprite_id, change in enumerate(self.sprite_changes):
             if change:
                 change['sprite_id'] = sprite_id
                 changes['sprite_changes'].append(change)
-    
+        # empty the record of changes
         self.sprite_changes = [{} for _ in range(len(self.sprite_changes))]
         self.image_changes = []
-
+        # output the string of changes
         if changes!={"image_changes": [], "sprite_changes": []}:
             return json.dumps(changes)
         else:
@@ -89,9 +96,19 @@ class Sprite():
         self.angle = 0
         
     def __setattr__(self,name,val):
-        if name!='_sprite_id':
-            _engine.sprite_changes[self._sprite_id][name] = val
-        self.__dict__[name] = val
+        # only do something if the value actually changes
+        if name in self.__dict__:
+            val_change = self.__dict__[name]!=val
+        else:
+            val_change = True
+        if val_change:
+            if name!='_sprite_id':
+                # record all values whenever something changes (remove once issue is fixed on Unity side)
+                for attr in self.__dict__:
+                    _engine.sprite_changes[self._sprite_id][attr] = self.__dict__[attr]
+                # record the updated value for the thing that's changed
+                _engine.sprite_changes[self._sprite_id][name] = val
+            self.__dict__[name] = val
     
 
 _engine = _Engine()
