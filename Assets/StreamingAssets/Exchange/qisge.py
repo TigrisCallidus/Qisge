@@ -89,9 +89,19 @@ class Sprite():
         self.angle = 0
         
     def __setattr__(self,name,val):
-        if name!='_sprite_id':
-            _engine.sprite_changes[self._sprite_id][name] = val
-        self.__dict__[name] = val
+        # only do something if the value actually changes
+        if name in self.__dict__:
+            val_change = self.__dict__[name]!=val
+        else:
+            val_change = True
+        if val_change:
+            if name!='_sprite_id':
+                # record all values whenever something changes (remove once issue is fixed on Unity side)
+                for attr in self.__dict__:
+                    _engine.sprite_changes[self._sprite_id][attr] = self.__dict__[attr]
+                # record the updated value for the thing that's changed
+                _engine.sprite_changes[self._sprite_id][name] = val
+            self.__dict__[name] = val
     
 
 _engine = _Engine()
