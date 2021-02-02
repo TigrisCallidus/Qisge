@@ -23,10 +23,10 @@ public class VisualManager : MonoBehaviour {
 
 
 
-    //Grid 25x14 (squares)
-    //Sprite import 50 pixel per unit
-    public const int maxWidth = 25;
-    public const int maxHeight = 14;
+    //Grid now 28x16 was initially 25x14 (squares)
+    //Sprite import maximum of width and height pixel per unit (to get a scale 1)
+    public const int maxWidth = 28;
+    public const int maxHeight = 16;
 
 
     public void UpdateAll(UpdateFile update) {
@@ -129,9 +129,11 @@ public class VisualManager : MonoBehaviour {
             Debug.LogError("File does not exist" + fileName);
         }
 
+        int max = Mathf.Max(texture.width, texture.height);
+
         //Texture2D tex = new Texture2D(4,4);
         //all our sprite use 50 pixel
-        Sprite sprite = Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 50.0f);
+        Sprite sprite = Sprite.Create(texture, new Rect(0.0f, 0.0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), max);
 
         return sprite;
     }
@@ -145,9 +147,9 @@ public class VisualManager : MonoBehaviour {
 
         CheckDefaultValues(position);
 
-        Vector3 pos = new Vector3(position.x, position.y, position.z);
+        Vector3 pos = new Vector3(position.x, position.y, -position.z);
         Quaternion rot = Quaternion.Euler(0, position.angle, 0);
-        float size = 0.1f * position.size;
+        float size = position.size;
         Vector3 sizeVec = new Vector3(size, size, size);
 
         SpriteRenderer renderer = Instantiate<SpriteRenderer>(RendererPrefab, pos, rot, this.transform);
@@ -170,9 +172,9 @@ public class VisualManager : MonoBehaviour {
 
         CheckDefaultValues(position);
 
-        Vector3 pos = new Vector3(position.x, position.y, position.z);
+        Vector3 pos = new Vector3(position.x, position.y, -position.z);
         Quaternion rot = Quaternion.Euler(0, 0, position.angle);
-        float size = 0.1f * position.size;
+        float size =position.size;
         Vector3 sizeVec = new Vector3(size, size, size);
 
         SpriteRenderer renderer = SpritesInScene[position.sprite_id];
