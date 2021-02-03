@@ -50,13 +50,12 @@ class _Engine():
         self.sprite_changes = []
         self.camera_changes = {}
         self.text_changes = []
-        self.sound_changes = []
                 
     def get_changes(self):
         # read in any changes that have not yet been acted upon
         changes = _read('sprite.txt')
         if changes:
-            changes = eval(changes)
+            changes = json.loads(changes)
         # otherwise construct from changes recorded in this object
         else:
             changes = {}
@@ -65,7 +64,7 @@ class _Engine():
         # empty the record of changes
         self.image_changes = []
         self.camera_changes = {}
-        for attr in ['sprite_changes','camera_changes','text_changes','sound_changes']:
+        for attr in ['sprite_changes','camera_changes','text_changes']:
             self.__dict__[attr] = [{} for _ in range(len(self.__dict__[attr]))]
         # output the string of changes
         return json.dumps(changes)
@@ -89,14 +88,33 @@ class ImageList(list):
         super().append(filename)
         self._record(image_id,filename)
 
+'''
+class SoundList(list):
+    
+    def __init__(self,filenames):
+        for filename in filenames:
+            self.append(filename)
+            
+    def _record(self,sound_id,filename):
+        _engine.sound_changes.append({'sound_id':sound_id,'filename':filename})
+        
+    def __setitem__(self,sound_id,filename):
+        super().__setitem__(sound_id,filename)
+        self._record(sound_id,filename)
+        
+    def append(self,filename):
+        sound_id = len(self)
+        super().append(filename)
+        self._record(sound_id,filename)
+'''
+
 
 class Camera():
 
-    def __init__(self,x=0,y=0,z=0,zoom=1,angle=0):
+    def __init__(self,x=0,y=0,z=0,size=8,angle=0):
         self.x = x
         self.y = y
-        self.z = z
-        self.zoom = zoom
+        self.size = size
         self.angle = angle
 
     def __setattr__(self,name,val):
@@ -111,7 +129,7 @@ class Camera():
 
  
 class Sprite():
-    def __init__(self,image_id,x=0,y=0,z=0,size=1,angle=0):
+    def __init__(self,image_id,x=0,y=0,z=0,size=1,angle=0,flip_h=False,flip_v=False):
         
         self.sprite_id = len(_engine.sprite_changes)
         _engine.sprite_changes.append({})
@@ -120,6 +138,8 @@ class Sprite():
         self.x = x
         self.y = y
         self.z = z
+        self.flip_h = flip_h
+        self.flip_v = flip_v
         self.size = size
         self.angle = angle
         
@@ -134,9 +154,16 @@ class Sprite():
                 _engine.sprite_changes[self.sprite_id][name] = val
             self.__dict__[name] = val
 
+'''
+class Sound():
+    def __init__(self,sound_id,loop=False,volume=1,pitch=0):
+
+        self.play_id = len(_engine.sound_changes)
+        _engine.sound_changes.append({})
+'''
 
 class Text():
-    def __init__(self,text,x=0,y=0,z=0,size=1,angle=0):
+    def __init__(self,text,width,height,x=0,y=0,z=0,font_size=0,font=0,angle=0):
 
         self._text_id = len(_engine.text_changes)
         _engine.text_changes.append({})
@@ -144,9 +171,11 @@ class Text():
         self.text = text
         self.x = x
         self.y = y
-        self.z = z
-        self.font_size = size
-        self.line_width
+        #self.z = z will be added one day, but not today
+        self.font_size = font_size
+        self.font = font
+        self.width = width
+        self.height = height
         self.angle = angle
 
     def __setattr__(self,name,val):
