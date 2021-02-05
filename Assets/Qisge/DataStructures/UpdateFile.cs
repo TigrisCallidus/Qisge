@@ -29,6 +29,9 @@ public class SpritePosition {
 
     public float angle = -1;
 
+    public bool flip_v = false;
+    public bool flip_h = false;
+
     public float movement_duration = -1;
     public float alpha = -1;
 
