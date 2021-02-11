@@ -171,4 +171,8 @@ public class TextManager : MonoBehaviour {
         target.SetText(text.text);
     }
 
+    public void Clear() {
+        StopAllCoroutines();
+    }
+
 }

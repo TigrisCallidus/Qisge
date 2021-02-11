@@ -136,7 +136,7 @@ public class GameManager : MonoBehaviour
             UpdateFile update = JsonUtility.FromJson<UpdateFile>(sprite);
             Visuals.UpdateAll(update);
             File.WriteAllText(SpriteFilePath, string.Empty);
-            Text.UpdateTexts(update.TextUpdates);
+            Text.UpdateTexts(update.text_changes);
         }
     }
 

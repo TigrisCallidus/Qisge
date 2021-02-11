@@ -4,7 +4,10 @@ public class UpdateFile {
 
     public SpriteChange[] image_changes;
     public SpritePosition[] sprite_changes;
-    public TextUpdate[] TextUpdates;
+    public TextUpdate[] text_changes;
+    public SoundFile[] soundlist;
+    public SoundUpdate[] sounds;
+
 }
 
 [System.Serializable]
