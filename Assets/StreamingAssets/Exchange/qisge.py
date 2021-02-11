@@ -127,16 +127,13 @@ class Camera():
     def __setattr__(self,name,val):
         # only do something if the value actually changes
         if _val_change(name,val,self.__dict__):
-            # record all values whenever something changes (remove once issue is fixed on Unity side)
-            for attr in self.__dict__:
-                _engine.camera_changes[attr] = self.__dict__[attr]
             # record the updated value for the thing that's changed
             _engine.camera_changes[name] = val
         self.__dict__[name] = val
 
  
 class Sprite():
-    def __init__(self,image_id,x=0,y=0,z=0,size=1,angle=0,flip_h=False,flip_v=False):
+    def __init__(self,image_id,x=0,y=0,z=0,size=1,angle=0,flip_h=0,flip_v=0):
         
         self.sprite_id = len(_engine.sprite_changes)
         _engine.sprite_changes.append({})
@@ -154,10 +151,8 @@ class Sprite():
         # only do something if the value actually changes
         if _val_change(name,val,self.__dict__):
             if name!='sprite_id':
-                # record all values whenever something changes (remove once issue is fixed on Unity side)
-                for attr in self.__dict__:
-                    _engine.sprite_changes[self.sprite_id][attr] = self.__dict__[attr]
                 # record the updated value for the thing that's changed
+                _engine.sprite_changes[self.sprite_id]['sprite_id'] = self.sprite_id
                 _engine.sprite_changes[self.sprite_id][name] = val
             self.__dict__[name] = val
 
@@ -177,18 +172,16 @@ class Sound():
         # only do something if the value actually changes
         if _val_change(name,val,self.__dict__):
             if name!='channel_id':
-                # record all values whenever something changes (remove once issue is fixed on Unity side)
-                for attr in self.__dict__:
-                    _engine.channel_changes[self.channel_id][attr] = self.__dict__[attr]
                 # record the updated value for the thing that's changed
+                _engine.channel_changes[self.channel_id]['channel_id'] = self.channel_id
                 _engine.channel_changes[self.channel_id][name] = val
             self.__dict__[name] = val
 
 
 class Text():
-    def __init__(self,text,width,height,x=0,y=0,z=0,font_size=0,font=0,angle=0):
+    def __init__(self,text,width,height,x=0,y=0,z=0,font_size=0,font=0,angle=0,font_color={"r":0,"g":0,"b":0,"a":255},background_color={"r":255,"g":255,"b":255,"a":255},border_color={"r":0,"g":0,"b":0,"a":255}):
 
-        self._text_id = len(_engine.text_changes)
+        self.text_id = len(_engine.text_changes)
         _engine.text_changes.append({})
         
         self.text = text
@@ -200,15 +193,16 @@ class Text():
         self.width = width
         self.height = height
         self.angle = angle
+        self.font_color = font_color
+        self.background_color = background_color
+        self.border_color = border_color
 
     def __setattr__(self,name,val):
         # only do something if the value actually changes
         if _val_change(name,val,self.__dict__):
             if name!='text_id':
-                # record all values whenever something changes (remove once issue is fixed on Unity side)
-                for attr in self.__dict__:
-                    _engine.text_changes[self.text_id][attr] = self.__dict__[attr]
                 # record the updated value for the thing that's changed
+                _engine.text_changes[self.text_id]['text_id'] = self.text_id
                 _engine.text_changes[self.text_id][name] = val
             self.__dict__[name] = val
 
