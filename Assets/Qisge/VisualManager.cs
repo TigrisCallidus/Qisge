@@ -148,7 +148,7 @@ public class VisualManager : MonoBehaviour {
         CheckDefaultValues(position);
 
         Vector3 pos = new Vector3(position.x, position.y, -position.z);
-        Quaternion rot = Quaternion.Euler(0, position.angle, 0);
+        Quaternion rot = Quaternion.Euler(0, 0, position.angle);
         float size = position.size;
         Vector3 sizeVec = new Vector3(size, size, size);
 
@@ -181,6 +181,8 @@ public class VisualManager : MonoBehaviour {
         renderer.transform.position = pos;
         renderer.transform.rotation = rot;
         renderer.transform.localScale = sizeVec;
+
+        Positions[position.sprite_id] = position;
 
         if (UsedSprites.ContainsKey(position.image_id)) {
             renderer.sprite = UsedSprites[position.image_id];

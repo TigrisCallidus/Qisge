@@ -1647,7 +1647,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 1
   Position: {x: 0, y: 1, z: 0}
-  DoesUpdate: 1
+  DoesUpdate: 0
   InitialState:
     image_changes:
     - image_id: 0
