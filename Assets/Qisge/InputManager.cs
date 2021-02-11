@@ -122,7 +122,7 @@ public class InputManager : MonoBehaviour
 
         inputFile.count = count;
 
-        Debug.Log("sending message number: " + count + " at time: " + Time.time);
+        //Debug.Log("sending message number: " + count + " at time: " + Time.time);
 
         count++;
 

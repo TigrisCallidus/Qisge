@@ -6,6 +6,9 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
 
+    public bool RunPythonFile = true;
+
+
     public string InputFile="input";
     public string SpriteFile = "sprite";
     public string PythonBaseFile = "run";
@@ -14,7 +17,7 @@ public class GameManager : MonoBehaviour
     public VisualManager Visuals;
     public InputManager Input;
     public WritingManager Writing;
-
+    public TextManager Text;
 
 
 
@@ -90,13 +93,17 @@ public class GameManager : MonoBehaviour
         Application.targetFrameRate = 60;
 
         File.WriteAllText(InputFilePath, string.Empty);
-        File.WriteAllText(SpriteFilePath, string.Empty);
+        if (!File.Exists(SpriteFilePath)) {
+            File.WriteAllText(SpriteFilePath, string.Empty);
+        }
 
     }
 
 
     private void Start() {
-        prepareAndStartJob();
+        if (RunPythonFile) {
+            prepareAndStartJob();
+        }
     }
 
     // Update is called once per frame
@@ -129,6 +136,7 @@ public class GameManager : MonoBehaviour
             UpdateFile update = JsonUtility.FromJson<UpdateFile>(sprite);
             Visuals.UpdateAll(update);
             File.WriteAllText(SpriteFilePath, string.Empty);
+            Text.UpdateTexts(update.TextUpdates);
         }
     }
 

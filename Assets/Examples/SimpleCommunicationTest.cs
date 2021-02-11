@@ -17,7 +17,7 @@ public class SimpleCommunicationTest : MonoBehaviour {
 
     public UpdateFile InitialState;
 
-
+    public string TestOutput;
 
     void Start() {
         CreateInitialState();
@@ -53,6 +53,7 @@ public class SimpleCommunicationTest : MonoBehaviour {
         if (sprite.Length == 0) {
             UpdateFileSmall update = WritePosition();
             string json = JsonUtility.ToJson(update);
+            TestOutput = json;
             File.WriteAllText(GameManager.SpriteFilePath, json);
         }
     }
@@ -84,7 +85,7 @@ public class SimpleCommunicationTest : MonoBehaviour {
 
         lastUpdate = Time.time;
 
-        Debug.Log("received message number: " + file.count + " at time " + Time.time);
+        //Debug.Log("received message number: " + file.count + " at time " + Time.time);
     }
 
     UpdateFileSmall WritePosition() {
@@ -96,7 +97,7 @@ public class SimpleCommunicationTest : MonoBehaviour {
         //update.sprite_changes[0].image_id = 0;
         update.sprite_changes[0].x = Position.x;
         update.sprite_changes[0].y = Position.y;
-        update.sprite_changes[0].z = Position.z;
+        //update.sprite_changes[0].z = Position.z;
         //update.sprite_changes[0].alpha = 1;
 
         return update;
@@ -127,7 +128,7 @@ public class SimpleCommunicationTest : MonoBehaviour {
         //public int image_id = -1;
         public float x = -1;
         public float y = -1;
-        public float z = -1;
+        //public float z = -1;
 
         //public float size = -1;
 

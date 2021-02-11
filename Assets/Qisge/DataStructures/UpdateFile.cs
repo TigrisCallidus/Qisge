@@ -4,6 +4,7 @@ public class UpdateFile {
 
     public SpriteChange[] image_changes;
     public SpritePosition[] sprite_changes;
+    public TextUpdate[] TextUpdates;
 }
 
 [System.Serializable]
@@ -36,7 +37,7 @@ public class SpritePosition {
     public float alpha = -1;
 
     //For level editor and logic.
-    public TileType type;
+    public TileType type= TileType.notSet;
 
     //Todo add coroutine for animations?
 
