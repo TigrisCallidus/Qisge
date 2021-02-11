@@ -136,7 +136,7 @@ class Camera():
 
  
 class Sprite():
-    def __init__(self,image_id,x=0,y=0,z=0,size=1,angle=0,flip_h=False,flip_v=False):
+    def __init__(self,image_id,x=0,y=0,z=0,size=1,angle=0,flip_h=0,flip_v=0):
         
         self.sprite_id = len(_engine.sprite_changes)
         _engine.sprite_changes.append({})
@@ -158,6 +158,7 @@ class Sprite():
                 for attr in self.__dict__:
                     _engine.sprite_changes[self.sprite_id][attr] = self.__dict__[attr]
                 # record the updated value for the thing that's changed
+                _engine.sprite_changes[self.sprite_id]['sprite_id'] = self.sprite_id
                 _engine.sprite_changes[self.sprite_id][name] = val
             self.__dict__[name] = val
 
@@ -186,9 +187,9 @@ class Sound():
 
 
 class Text():
-    def __init__(self,text,width,height,x=0,y=0,z=0,font_size=0,font=0,angle=0):
+    def __init__(self,text,width,height,x=0,y=0,z=0,font_size=0,font=0,angle=0,font_color={"r":0,"g":0,"b":0,"a":255},background_color={"r":255,"g":255,"b":255,"a":255},border_color={"r":0,"g":0,"b":0,"a":255}):
 
-        self._text_id = len(_engine.text_changes)
+        self.text_id = len(_engine.text_changes)
         _engine.text_changes.append({})
         
         self.text = text
@@ -200,6 +201,9 @@ class Text():
         self.width = width
         self.height = height
         self.angle = angle
+        self.font_color = font_color
+        self.background_color = background_color
+        self.border_color = border_color
 
     def __setattr__(self,name,val):
         # only do something if the value actually changes
