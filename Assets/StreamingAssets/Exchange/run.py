@@ -1,39 +1,46 @@
 import qisge
 
-#ADD YOUR CODE HERE (overwrite the existing code)
 import time
 
-dx,dy = 0.1,0.1
+x0,y0 = 5,0
+d = 0.2
+fps = 30
 
-images = qisge.ImageList(['spiral.png'])
-sprite = qisge.Sprite(0)
+# load images
+images = qisge.ImageList(['SquareRed.png','SquareBlue.png'])
+
+
+
+
+sprite = {}
+for x in range(16):
+    for y in [0,15]:
+        sprite[x,y] = qisge.Sprite(1,x=x0+x,y=y0+y,z=0)
+
+player = qisge.Sprite(0)
+player.x = x0+7
+player.y = y0+7
+player.z = 1
 
 input = qisge.update()
+
+title = qisge.Text('test',1,1)
+
 
 running = True
 while running:
 
-    if 0 in input['key_presses']:
-        sprite.x = sprite.x
-        sprite.y += dy
-        print(sprite.x,sprite.y)
+    if 0 in input['key_presses']:   
+        player.y += d
     if 2 in input['key_presses']:
-        sprite.x = sprite.x
-        sprite.y -= dy
-        print(sprite.x,sprite.y)
-    if 1 in input['key_presses'] and 0 not in input['key_presses']:
-        sprite.y = sprite.y
-        sprite.x += dx
-        print(sprite.x,sprite.y)
+        player.y -= d
+    if 1 in input['key_presses']:
+        player.x += d
     if 3 in input['key_presses']:
-        sprite.y = sprite.y
-        sprite.x -= dx
-        print(sprite.x,sprite.y)
-    if 6 in input['key_presses']:
-        running = False
+        player.x -= d
+    if 4 in input['key_presses']:
+        pass
 
-    
-    
     input = qisge.update()
-    time.sleep(1/40)
+    time.sleep(1/fps)
 
