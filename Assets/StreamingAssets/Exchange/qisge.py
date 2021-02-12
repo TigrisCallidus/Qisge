@@ -193,18 +193,41 @@ class Text():
         self.width = width
         self.height = height
         self.angle = angle
-        self.font_color = font_color
-        self.background_color = background_color
-        self.border_color = border_color
+        self._font_color = font_color
+        self._background_color = background_color
+        self._border_color = border_color
 
     def __setattr__(self,name,val):
         # only do something if the value actually changes
         if _val_change(name,val,self.__dict__):
+            # change the value
+            self.__dict__[name] = val
+            # record the change
             if name!='text_id':
+                if name[0]=='_':
+                    name = name [1::]
                 # record the updated value for the thing that's changed
                 _engine.text_changes[self.text_id]['text_id'] = self.text_id
                 _engine.text_changes[self.text_id][name] = val
-            self.__dict__[name] = val
+
+    def _rgb2col(self,rgb):
+        col= {'r':rgb[0], 'g':rgb[1], 'b':rgb[2]}
+        try:
+            col['a'] = rgb[3]
+        except:
+            col['a'] = 255
+        return col
+
+    def set_background_color(self,rgb):
+        self._background_color = self._rgb2col(rgb)
+
+    def set_font_color(self,rgb):
+        self._font_color = self._rgb2col(rgb)
+
+    def set_border_color(self,rgb):
+        self._border_color = self._rgb2col(rgb)
+        
+            
 
 
 _scrub()
