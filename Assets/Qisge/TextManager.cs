@@ -216,7 +216,7 @@ public class TextManager : MonoBehaviour {
 
     public void UpdateTextPosition(TextUpdate text) {
 
-        UsedTexts.[text._text_id] = text;
+        UsedTexts[text._text_id] = text;
         TextObject target = TextsInScene[text._text_id];
 
         if (text.UpdateText) {
