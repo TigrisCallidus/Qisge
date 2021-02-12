@@ -61,89 +61,151 @@ public class TextManager : MonoBehaviour {
 
             if (text.text.Length== NoneString.Length && text.text== NoneString) {
                 text.text = orig.text;
+            } else {
+                text.UpdateText = true;
             }
+
+            bool updatePos = false;
 
             if (text.x < 0) {
                 text.x = orig.x;
+            } else {
+                updatePos = true;
             }
             if (text.y < 0) {
                 text.y = orig.y;
+            } else {
+                updatePos = true;
             }
             if (text.z < 0) {
                 text.z = orig.z;
+            } else {
+                updatePos = true;
             }
-
-            if (text.font == FontType.None) {
-                text.font = orig.font;
-            }
-
-            if (text.font_size < 0) {
-                text.font_size = orig.font_size;
-            }
-
             if (text.width < 0) {
                 text.width = orig.width;
+            } else {
+                updatePos = true;
             }
             if (text.height < 0) {
                 text.height = orig.height;
+            } else {
+                updatePos = true;
             }
             if (text.angle < 0) {
                 text.angle = orig.angle;
+            } else {
+                updatePos = true;
             }
+            if (text.font_size < 0) {
+                text.font_size = orig.font_size;
+            } else {
+                updatePos = true;
+            }
+            if (text.font == FontType.None) {
+                text.font = orig.font;
+            } else {
+                updatePos = true;
+            }
+
+            text.UpdatePosition= updatePos;
+
+            bool updateColors = false;
+
 
             if (IsDefaultColor(text.background_color)) {
                 text.background_color = orig.background_color;
+            } else {
+                updateColors = true;
             }
             if (IsDefaultColor(text.border_color)) {
                 text.border_color = orig.border_color;
+            } else {
+                updateColors = true;
             }
             if (IsDefaultColor(text.font_color)) {
                 text.font_color = orig.font_color;
+            } else {
+                updateColors = true;
             }
+
+            text.UpdateColor = updateColors;
+
 
         } else {
 
             if (text.text.Length == NoneString.Length && text.text == NoneString) {
                 text.text = "";
+            } else {
+                text.UpdateText = true;
             }
-            
+
+            bool updatePos = false;
+
+
             if (text.x < 0) {
                 text.x = 0;
+            } else {
+                updatePos = true;
             }
             if (text.y < 0) {
                 text.y = 0;
+            } else {
+                updatePos = true;
             }
             if (text.z < 0) {
                 text.z = 0;
+            } else {
+                updatePos = true;
             }
-
-            if (text.font == FontType.None) {
-                text.font = FontType.Arial;
-            }
-
-            if (text.font_size < 0) {
-                text.font_size = 1;
-            }
-
             if (text.width < 0) {
                 text.width = 2;
+            } else {
+                updatePos = true;
             }
             if (text.height < 0) {
                 text.height = 1;
+            } else {
+                updatePos = true;
             }
             if (text.angle < 0) {
                 text.angle = 0;
+            } else {
+                updatePos = true;
             }
+            if (text.font_size < 0) {
+                text.font_size = 1;
+            } else {
+                updatePos = true;
+            }
+            if (text.font == FontType.None) {
+                text.font = FontType.Arial;
+            } else {
+                updatePos = true;
+            }
+
+            text.UpdatePosition = updatePos;
+
+            bool updateColors = false;
 
             if (IsDefaultColor(text.background_color)) {
                 text.background_color = new Color32(255,255,255,255);
+            } else {
+                updateColors = true;
             }
             if (IsDefaultColor(text.border_color)) {
                 text.border_color = new Color32(0, 0, 0, 255);
+            } else {
+                updateColors = true;
             }
             if (IsDefaultColor(text.font_color)) {
                 text.font_color = new Color32(0, 0, 0, 255);
+            } else {
+                updateColors = true;
             }
+
+            text.UpdateColor = updateColors;
+
 
         }
     }
@@ -153,22 +215,34 @@ public class TextManager : MonoBehaviour {
     }
 
     public void UpdateTextPosition(TextUpdate text) {
+
+        UsedTexts.[text._text_id] = text;
         TextObject target = TextsInScene[text._text_id];
-        target.PosX = text.x;
-        target.PosY = text.y;
-        target.PosZ = text.z;
-        target.Width = text.width;
-        target.Height = text.height;
 
-        target.AdaptSize();
+        if (text.UpdateText) {
+            target.SetText(text.text);
+        }
 
-        target.BorderColor = text.border_color;
-        target.BackgroundColor = text.background_color;
-        target.TextColor = text.font_color;
+        if (text.UpdatePosition) {
 
-        target.AdaptColors();
+            target.PosX = text.x;
+            target.PosY = text.y;
+            target.PosZ = text.z;
+            target.Width = text.width;
+            target.Height = text.height;
 
-        target.SetText(text.text);
+            target.AdaptSize();
+        }
+
+        if (text.UpdateColor) {
+
+            target.BorderColor = text.border_color;
+            target.BackgroundColor = text.background_color;
+            target.TextColor = text.font_color;
+
+            target.AdaptColors();
+        }
+
     }
 
     public void Clear() {

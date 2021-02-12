@@ -22,6 +22,36 @@ public class TextUpdate
     public Color32 background_color= TextManager.NoneColor;
     public Color32 border_color= TextManager.NoneColor;
 
+    public bool UpdateText {
+        get {
+            return updateText;
+        }
+        set {
+            updateText = value;
+        }
+    }
+
+    bool updateText = false;
+
+    public bool UpdatePosition {
+        get {
+            return updatePosition;
+        }
+        set {
+            updatePosition = value;
+        }
+    }
+    bool updatePosition = false;
+    public bool UpdateColor {
+        get {
+            return updateColor;
+        }
+        set {
+            updateColor = value;
+        }
+    }
+    bool updateColor = false;
+
 }
 
 public enum FontType {

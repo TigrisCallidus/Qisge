@@ -33,7 +33,7 @@ public class TextObject : MonoBehaviour
 
 
 
-        Debug.Log("Adapt size");
+        //Debug.Log("Adapt size");
         PositionHolder.localPosition = new Vector3(PosX * TextManager.SquareSize, PosY * TextManager.SquareSize, PosZ);
         SizeHolder.sizeDelta = new Vector2(Width* TextManager.SquareSize, Height* TextManager.SquareSize);
 
