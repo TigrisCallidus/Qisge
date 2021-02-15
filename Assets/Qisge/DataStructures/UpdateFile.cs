@@ -25,9 +25,9 @@ public class SpritePosition {
     public int sprite_id;
 
     public int image_id = -1;
-    public float x = -1;
-    public float y = -1;
-    public float z = -1;
+    public float x = GameManager.MinPosition-1;
+    public float y = GameManager.MinPosition-1;
+    public float z = GameManager.MinPosition-1;
 
     public float size = -1;
 

@@ -28,6 +28,9 @@ public class GameManager : MonoBehaviour
 
     //const string filePath = "Testing";
 
+    //Minimum value which can be assigned to positions
+    public const int MinPosition = -1000;
+
     const string inputFile = "input.txt";
     const string spriteFile = "sprite.txt";
     const string runFile = "run.py";

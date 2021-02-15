@@ -29,7 +29,7 @@ public class TextManager : MonoBehaviour {
             return;
         }
         for (int i = 0; i < texts.Length; i++) {
-            if (UsedTexts.ContainsKey(texts[i]._text_id)) {
+            if (UsedTexts.ContainsKey(texts[i].text_id)) {
                 UpdateText(texts[i]);
 
             } else {
@@ -42,9 +42,9 @@ public class TextManager : MonoBehaviour {
 
 
     public void CreateText(TextUpdate text) {
-        TextsInScene[text._text_id] = Instantiate<TextObject>(TextPrefab, TextParent);
+        TextsInScene[text.text_id] = Instantiate<TextObject>(TextPrefab, TextParent);
         CheckDefaultValues(text);
-        UsedTexts.Add(text._text_id, text);
+        UsedTexts.Add(text.text_id, text);
         UpdateTextPosition(text);
     }
 
@@ -56,8 +56,8 @@ public class TextManager : MonoBehaviour {
 
 
     public void CheckDefaultValues(TextUpdate text) {
-        if (UsedTexts.ContainsKey(text._text_id)) {
-            TextUpdate orig = UsedTexts[text._text_id];
+        if (UsedTexts.ContainsKey(text.text_id)) {
+            TextUpdate orig = UsedTexts[text.text_id];
 
             if (text.text.Length== NoneString.Length && text.text== NoneString) {
                 text.text = orig.text;
@@ -67,17 +67,17 @@ public class TextManager : MonoBehaviour {
 
             bool updatePos = false;
 
-            if (text.x < 0) {
+            if (text.x < GameManager.MinPosition) {
                 text.x = orig.x;
             } else {
                 updatePos = true;
             }
-            if (text.y < 0) {
+            if (text.y < GameManager.MinPosition) {
                 text.y = orig.y;
             } else {
                 updatePos = true;
             }
-            if (text.z < 0) {
+            if (text.z < GameManager.MinPosition) {
                 text.z = orig.z;
             } else {
                 updatePos = true;
@@ -143,17 +143,17 @@ public class TextManager : MonoBehaviour {
             bool updatePos = false;
 
 
-            if (text.x < 0) {
+            if (text.x < GameManager.MinPosition) {
                 text.x = 0;
             } else {
                 updatePos = true;
             }
-            if (text.y < 0) {
+            if (text.y < GameManager.MinPosition) {
                 text.y = 0;
             } else {
                 updatePos = true;
             }
-            if (text.z < 0) {
+            if (text.z < GameManager.MinPosition) {
                 text.z = 0;
             } else {
                 updatePos = true;
@@ -216,8 +216,8 @@ public class TextManager : MonoBehaviour {
 
     public void UpdateTextPosition(TextUpdate text) {
 
-        UsedTexts[text._text_id] = text;
-        TextObject target = TextsInScene[text._text_id];
+        UsedTexts[text.text_id] = text;
+        TextObject target = TextsInScene[text.text_id];
 
         if (text.UpdateText) {
             target.SetText(text.text);

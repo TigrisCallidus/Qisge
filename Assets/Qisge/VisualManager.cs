@@ -202,13 +202,13 @@ public class VisualManager : MonoBehaviour {
             if (position.image_id < 0) {
                 position.image_id = orig.image_id;
             }
-            if (position.x < 0) {
+            if (position.x < GameManager.MinPosition) {
                 position.x = orig.x;
             }
-            if (position.y < 0) {
+            if (position.y < GameManager.MinPosition) {
                 position.y = orig.y;
             }
-            if (position.z < 0) {
+            if (position.z < GameManager.MinPosition) {
                 position.z = orig.z;
             }
             if (position.size < 0) {

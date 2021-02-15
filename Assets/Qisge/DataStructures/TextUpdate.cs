@@ -6,10 +6,10 @@ using UnityEngine;
 public class TextUpdate
 {
     public string text = TextManager.NoneString;
-    public int _text_id;
-    public float x=-1;
-    public float y=-1;
-    public float z=-1;
+    public int text_id;
+    public float x= GameManager.MinPosition - 1;
+    public float y= GameManager.MinPosition - 1;
+    public float z= GameManager.MinPosition - 1;
 
     public FontType font= FontType.None;
     public int font_size=-1;
