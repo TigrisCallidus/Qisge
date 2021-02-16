@@ -1,5 +1,6 @@
 import json
 from os.path import dirname, abspath, join
+import time
 
 
 def _read(filename):
@@ -179,7 +180,7 @@ class Sound():
 
 
 class Text():
-    def __init__(self,text,width,height,x=0,y=0,z=0,font_size=0,font=0,angle=0,font_color={"r":0,"g":0,"b":0,"a":255},background_color={"r":255,"g":255,"b":255,"a":255},border_color={"r":0,"g":0,"b":0,"a":255}):
+    def __init__(self,text,width,height,x=0,y=0,font_size=0,font=0,angle=0,font_color={"r":0,"g":0,"b":0,"a":255},background_color={"r":255,"g":255,"b":255,"a":255},border_color={"r":0,"g":0,"b":0,"a":255}):
 
         self.text_id = len(_engine.text_changes)
         _engine.text_changes.append({})
@@ -226,10 +227,36 @@ class Text():
 
     def set_border_color(self,rgb):
         self._border_color = self._rgb2col(rgb)
-        
-            
+
+
+def print(text):
+    if type(text)!=str:
+        text = str(text)
+    fulltext = _print_buffer.text + '\n' + text
+    fulltext = '\n'.join(fulltext.split('\n')[-32::])
+    _print_buffer.text = fulltext
+    show_print()
+
+def show_print():
+    _print_buffer.set_font_color((0,0,0,128))
+    _print_buffer.set_background_color((255,255,255,128))
+    _print_buffer.set_border_color((255,255,255,0))
+
+def hide_print():
+    _print_buffer.set_font_color((0,0,0,0))
+    _print_buffer.set_background_color((255,255,255,0))
+    _print_buffer.set_border_color((255,255,255,0))
 
 
 _scrub()
 _engine = _Engine()
 camera = Camera()
+
+_print_buffer = Text('',28,16,y=15)
+hide_print()
+
+update()
+time.sleep(0.5)
+
+
+
