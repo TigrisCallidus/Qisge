@@ -17,3 +17,9 @@ public class SoundUpdate {
     public float volume;
     public float pitch;
 }
+
+//TODO FOR BETTER MUSIC
+
+//  Pitch as from notes Assume base value c (or make base value a variable)
+//  Scheduling
+//  

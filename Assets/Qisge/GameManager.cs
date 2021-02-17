@@ -96,9 +96,7 @@ public class GameManager : MonoBehaviour
         Application.targetFrameRate = 60;
 
         File.WriteAllText(InputFilePath, string.Empty);
-        if (!File.Exists(SpriteFilePath)) {
-            File.WriteAllText(SpriteFilePath, string.Empty);
-        }
+        File.WriteAllText(SpriteFilePath, string.Empty);
 
     }
 
