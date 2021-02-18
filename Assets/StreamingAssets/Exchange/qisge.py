@@ -34,6 +34,12 @@ def _update_screen():
     '''Gets the changes from the `_engine` and writes them to 'sprite.txt'.'''
     changes = _engine.get_changes()
     if changes:
+        # if there are already changes in the queue, wait
+        queue = _read('sprite.txt')
+        while queue!='':
+            time.sleep(1/100)
+            queue = _read('sprite.txt')
+        # write new changes
         _write('sprite.txt',changes)
 
 def _val_change(key,value,dictionary):
@@ -61,15 +67,10 @@ class _Engine():
         self.channel_changes = []
                 
     def get_changes(self):
-        # read in any changes that have not yet been acted upon
-        changes = _read('sprite.txt')
-        if changes:
-            changes = json.loads(changes)
-        # otherwise construct from changes recorded in this object
-        else:
-            changes = {}
-            for attr in self.__dict__:
-                changes[attr] = self.__dict__[attr]
+        # make the changes dictionary
+        changes = {}
+        for attr in self.__dict__:
+            changes[attr] = self.__dict__[attr]
         # empty the record of changes
         self.image_changes = []
         self.camera_changes = {}
@@ -254,9 +255,6 @@ camera = Camera()
 
 _print_buffer = Text('',28,16,y=15)
 hide_print()
-
-update()
-time.sleep(0.5)
 
 
 
