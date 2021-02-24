@@ -24,13 +24,44 @@ public class SimpleCommunicationTest : MonoBehaviour {
     }
 
 
-
+    MusicalNote lastNotePressed = MusicalNote.None;
 
     // Update is called once per frame
     void Update() {
         if (DoesUpdate) {
+            checkNotePressed();
+
+
             CheckForUpdate();
         }
+    }
+
+    void checkNotePressed() {
+        if (Input.GetKeyDown( KeyCode.C)) {
+            lastNotePressed = MusicalNote.C;
+        }
+        if (Input.GetKeyDown(KeyCode.V)) {
+            lastNotePressed = MusicalNote.D;
+        }
+        if (Input.GetKeyDown(KeyCode.B)) {
+            lastNotePressed = MusicalNote.E;
+        }
+        if (Input.GetKeyDown(KeyCode.N)) {
+            lastNotePressed = MusicalNote.F;
+        }
+        if (Input.GetKeyDown(KeyCode.M)) {
+            lastNotePressed = MusicalNote.G;
+        }
+        if (Input.GetKeyDown(KeyCode.Y)) {
+            lastNotePressed = MusicalNote.A;
+        }
+        if (Input.GetKeyDown(KeyCode.X)) {
+            lastNotePressed = MusicalNote.H;
+        }
+
+
+
+
     }
 
 
@@ -52,10 +83,26 @@ public class SimpleCommunicationTest : MonoBehaviour {
 
         if (sprite.Length == 0) {
             UpdateFileSmall update = WritePosition();
+            update.sounds = getSound();
             string json = JsonUtility.ToJson(update);
             TestOutput = json;
             File.WriteAllText(GameManager.SpriteFilePath, json);
         }
+    }
+
+    SoundUpdateSmall[] getSound() {
+        SoundUpdateSmall[] notes = new SoundUpdateSmall[1];
+        SoundUpdateSmall notePressed = new SoundUpdateSmall(); 
+        if (lastNotePressed== MusicalNote.None) {
+            return new SoundUpdateSmall[0];
+        } else {
+            
+            notePressed.channel = 0;
+            notePressed.note = lastNotePressed;
+        }
+        lastNotePressed = MusicalNote.None;
+        notes[0] = notePressed;
+        return notes;
     }
 
     void HandleInput(InputFile file) {
@@ -109,6 +156,7 @@ public class SimpleCommunicationTest : MonoBehaviour {
 
         public SpriteChange[] image_changes;
         public SpritePositionSmall[] sprite_changes;
+        public SoundUpdateSmall[] sounds;
     }
     /*
     [System.Serializable]
@@ -143,6 +191,20 @@ public class SimpleCommunicationTest : MonoBehaviour {
         //Todo add coroutine for animations?
 
     }
+
+    [System.Serializable]
+    public class SoundUpdateSmall {
+        const int MinValue = -1;
+
+        public int channel = MinValue;
+        //public int playmode = MinValue;
+        //0 = not playing, 1=oneshot, >1 = playing
+        //public float volume = MinValue - 0.01f;
+        //public float pitch = MinValue - 0.01f;
+        //public int looping = MinValue;
+        public MusicalNote note = MusicalNote.None;
+    }
+
     /*
     public enum TileType {
         notSet,

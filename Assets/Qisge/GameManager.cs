@@ -1,4 +1,17 @@
-﻿using System.Collections;
+﻿// -*- coding: utf-8 -*-
+
+// This code is part of Qiskit.
+//
+// (C) Copyright IBM 2020.
+//
+// This code is licensed under the Apache License, Version 2.0. You may
+// obtain a copy of this license in the LICENSE.txt file in the root directory
+// of this source tree or at http://www.apache.org/licenses/LICENSE-2.0.
+//
+// Any modifications or derivative works of this code must retain this
+// copyright notice, and modified files need to carry a notice indicating
+// that they have been altered from the originals.
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
@@ -18,7 +31,7 @@ public class GameManager : MonoBehaviour
     public InputManager Input;
     public WritingManager Writing;
     public TextManager Text;
-
+    public SoundManager Sound;
 
 
 
@@ -131,13 +144,14 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        string sprite = File.ReadAllText(SpriteFilePath);
+        string data = File.ReadAllText(SpriteFilePath);
 
-        if (sprite.Length>0) {
-            UpdateFile update = JsonUtility.FromJson<UpdateFile>(sprite);
+        if (data.Length>0) {
+            UpdateFile update = JsonUtility.FromJson<UpdateFile>(data);
             Visuals.UpdateAll(update);
             File.WriteAllText(SpriteFilePath, string.Empty);
             Text.UpdateTexts(update.text_changes);
+            Sound.UpdateSounds(update);
         }
     }
 
