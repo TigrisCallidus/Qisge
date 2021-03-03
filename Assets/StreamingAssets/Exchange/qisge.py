@@ -133,7 +133,7 @@ class Camera():
             _engine.camera_changes[name] = val
         self.__dict__[name] = val
 
- 
+
 class Sprite():
     def __init__(self,image_id,x=0,y=0,z=0,size=1,angle=0,flip_h=0,flip_v=0):
         
@@ -161,14 +161,15 @@ class Sprite():
 
 class Sound():
 
-    def __init__(self,sound_id,playmode=0,volume=1,pitch=0):
+    def __init__(self,sound_id,playmode=0,volume=1,pitch=0,note=0):
         self.channel_id = len(_engine.channel_changes)
         _engine.channel_changes.append({})
 
         self.sound_id = sound_id
         self.playmode = playmode
-        self.volume = 1
-        self.pitch = 0
+        self.volume = volume
+        self.pitch = pitch
+        self.note = note
 
     def __setattr__(self,name,val):
         # only do something if the value actually changes
