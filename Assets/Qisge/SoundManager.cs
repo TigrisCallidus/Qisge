@@ -39,8 +39,8 @@ public class SoundManager : MonoBehaviour {
     }
 
     public void UpdateSounds(UpdateFile update) {
-        UpdateClips(update.soundlist);
-        UpdateChannels(update.sounds);
+        UpdateClips(update.sound_changes);
+        UpdateChannels(update.channel_changes);
     }
 
     public void UpdateClips(SoundFile[] soundfiles) {

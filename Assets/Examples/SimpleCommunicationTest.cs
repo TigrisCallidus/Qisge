@@ -67,6 +67,7 @@ public class SimpleCommunicationTest : MonoBehaviour {
 
     void CreateInitialState() {
         File.WriteAllText(GameManager.SpriteFilePath, JsonUtility.ToJson(InitialState));
+        TestOutput = JsonUtility.ToJson(InitialState);
         float lastUpdate = Time.time;
     }
 

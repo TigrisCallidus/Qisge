@@ -15,19 +15,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoundObject : MonoBehaviour
-{
+public class SoundObject : MonoBehaviour {
 
     public AudioClip Clip;
-
     public AudioSource Source;
 
     public void ApplySettings(SoundUpdate sound) {
 
-
         Source.volume = sound.volume;
         Source.pitch = sound.pitch;
-        if (sound.note!= MusicalNote.None && sound.note!= MusicalNote.C) {
+        if (sound.note != MusicalNote.None && sound.note != MusicalNote.C) {
             float increase = (int)sound.note;
             increase = increase - 1;
             float pitch = Mathf.Pow(2, increase / 12);
@@ -39,11 +36,13 @@ public class SoundObject : MonoBehaviour
         } else if (sound.playmode == 1) {
             Source.PlayOneShot(Clip);
         } else if (sound.playmode > 1) {
+            //default set to looping.
             Source.clip = Clip;
             Source.Play();
+            Source.loop = true;
             if (sound.looping > 0) {
                 Source.loop = true;
-            } else {
+            } else if (sound.looping == 0) {
                 Source.loop = false;
             }
         }

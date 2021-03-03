@@ -17,8 +17,8 @@ public class UpdateFile {
     public SpriteChange[] image_changes;
     public SpritePosition[] sprite_changes;
     public TextUpdate[] text_changes;
-    public SoundFile[] soundlist;
-    public SoundUpdate[] sounds;
+    public SoundFile[] sound_changes;
+    public SoundUpdate[] channel_changes;
 
 }
 

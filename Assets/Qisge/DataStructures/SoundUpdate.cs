@@ -23,15 +23,17 @@ public class SoundFile {
 
 public class SoundUpdate {
 
-    public const int MinValue = -1;
+    public const int MinValue = -10;
 
     //Value between 0-999
     public int sound_id = MinValue;
     public int channel = MinValue;
-    public int playmode = MinValue;
     //0 = not playing, 1=oneshot, >1 = playing
+    public int playmode = MinValue;
+    //between 0 and 1. 1 means max volume, 0 means no sound
     public float volume = MinValue - 0.01f;
     public float pitch = MinValue - 0.01f;
+    //stand in for bool: 0=false, 1=true
     public int looping = MinValue;
     public MusicalNote note = MusicalNote.None;
 
@@ -41,7 +43,7 @@ public class SoundUpdate {
         returnValue.pitch = 1;
         returnValue.playmode = 0;
         returnValue.channel = 0;
-        returnValue.looping = 0;
+        //returnValue.looping = 0;
         returnValue.note = MusicalNote.C;
         return returnValue;
     }
@@ -50,19 +52,19 @@ public class SoundUpdate {
 }
 
 public enum MusicalNote {
-    None,
-    C,
-    Csharp,
-    D,
-    Dsharp,
-    E,
-    F,
-    Fsharp,
-    G,
-    Gsharp,
-    A,
-    Asharp,
-    H
+    None, //=0
+    C, //=1
+    Csharp, //=2
+    D, //==3
+    Dsharp, // =4 
+    E, //=5
+    F, //=6
+    Fsharp, //=7
+    G, //=8
+    Gsharp, //=9
+    A, //=10
+    Asharp, //=11
+    H //=12
 }
 
 //TODO FOR BETTER MUSIC
