@@ -79,30 +79,103 @@ public class SoundManager : MonoBehaviour {
     }
 
     public void GenerateAudioClip(int sound_id, string filename) {
-        AudioClip clip = loadClipFromMP3(filename);
+        AudioClip clip = loadClip(filename);
         usedClips.Add(sound_id, clip);
     }
 
     public void UpdateAudioClip(int sound_id, string filename) {
         //Generate new Audio clip
-        AudioClip clip = loadClipFromMP3(filename);
+        AudioClip clip = loadClip(filename);
 
         usedClips[sound_id] = clip;
 
     }
 
+
+    AudioClip loadClip(string fileName) {
+        if (fileName.EndsWith(".mp3")) {
+            return loadClipFromMP3(fileName);
+        } else if (fileName.ToLower().EndsWith(".wav")) {
+            return loadClipFromWav(fileName);
+        } else if (fileName.EndsWith(".ogg")) {
+            return loadClipFromOGG(fileName);
+        } else {
+            Debug.Log("No allowed file ending");
+            return null;
+        }
+    }
+
+    //TODO MAKE WITHOUT WRITING OF FILE!
     AudioClip loadClipFromMP3(string fileName) {
 
         AudioClip clip = null;
-        byte[] data;
+        //byte[] data;
 
         fileName = Path.Combine(GameManager.DataFolder, fileName);
 
-        //Todo add .wav
         if (File.Exists(fileName) && fileName.EndsWith(".mp3")) {
 
-            data = File.ReadAllBytes(fileName);
-            clip = NAudioPlayer.FromMp3Data(data);
+            //data = File.ReadAllBytes(fileName);
+            //clip = NAudioPlayer.FromMp3Data(data);
+            string newFileName = NAudioPlayer.CreateWaveFromMp3(fileName);
+            clip = loadClipFromWav(newFileName);
+            File.Delete(newFileName);
+        } else {
+            Debug.LogError("File does not exist" + fileName);
+        }
+
+        return clip;
+    }
+
+    AudioClip loadClipFromWav(string fileName) {
+
+        AudioClip clip = null;
+
+        fileName = Path.Combine(GameManager.DataFolder, fileName);
+
+        if (File.Exists(fileName) && fileName.EndsWith(".wav")) {
+
+            using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(fileName, AudioType.WAV)) {
+                www.SendWebRequest();
+
+                while (!www.isDone) {
+                    
+                }
+
+                if (www.isNetworkError) {
+                    Debug.Log(www.error);
+                } else {
+                    clip = DownloadHandlerAudioClip.GetContent(www);
+                }
+            }
+        } else {
+            Debug.LogError("File does not exist" + fileName);
+        }
+
+        return clip;
+    }
+
+    AudioClip loadClipFromOGG(string fileName) {
+
+        AudioClip clip = null;
+
+        fileName = Path.Combine(GameManager.DataFolder, fileName);
+
+        if (File.Exists(fileName) && fileName.EndsWith(".ogg")) {
+
+            using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(fileName, AudioType.OGGVORBIS)) {
+                www.SendWebRequest();
+
+                while (!www.isDone) {
+
+                }
+
+                if (www.isNetworkError) {
+                    Debug.Log(www.error);
+                } else {
+                    clip = DownloadHandlerAudioClip.GetContent(www);
+                }
+            }
         } else {
             Debug.LogError("File does not exist" + fileName);
         }

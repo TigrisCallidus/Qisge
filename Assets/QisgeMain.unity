@@ -1598,7 +1598,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1848945943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1750,25 +1750,25 @@ MonoBehaviour:
       border_color:
         serializedVersion: 2
         rgba: 4278190080
-    soundlist:
+    sound_changes:
     - sound_id: 0
-      filename: Test.mp3
-    - sound_id: 1
       filename: piano_middle_C.mp3
-    sounds:
-    - sound_id: 0
-      channel: 1
-      playmode: 0
-      volume: -1
-      pitch: -1
-      looping: -1
-      note: 0
     - sound_id: 1
+      filename: Test.mp3
+    channel_changes:
+    - sound_id: 0
       channel: 0
       playmode: 1
-      volume: -1
-      pitch: -1
-      looping: -1
+      volume: 1
+      pitch: 1
+      looping: 1
+      note: 0
+    - sound_id: 1
+      channel: 1
+      playmode: 2
+      volume: 1
+      pitch: 1
+      looping: 0
       note: 0
   TestOutput: 
 --- !u!4 &1848945944
@@ -1947,7 +1947,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cabf6a9db04cb84e8f9225d2dc60e8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RunPythonFile: 1
+  RunPythonFile: 0
   InputFile: input
   SpriteFile: sprite
   PythonBaseFile: run
