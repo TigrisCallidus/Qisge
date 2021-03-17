@@ -1598,7 +1598,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1848945943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1947,7 +1947,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cabf6a9db04cb84e8f9225d2dc60e8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RunPythonFile: 0
+  RunPythonFile: 1
   InputFile: input
   SpriteFile: sprite
   PythonBaseFile: run
