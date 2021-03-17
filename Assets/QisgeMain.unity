@@ -148,11 +148,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 20107730}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 13.5, y: 7.5, z: 0.57}
+  m_LocalPosition: {x: 0, y: 0, z: 1000.57}
   m_LocalScale: {x: 3, y: 1, z: 3}
   m_Children: []
-  m_Father: {fileID: 428130958}
-  m_RootOrder: 4
+  m_Father: {fileID: 1868656217}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!64 &20107732
 MeshCollider:
@@ -215,6 +215,51 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 20107730}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &52717098
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 52717100}
+  - component: {fileID: 52717099}
+  m_Layer: 0
+  m_Name: CameraManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &52717099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 52717098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9a3c14a77f93514289cfec15886789f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Camera: {fileID: 1868656216}
+--- !u!4 &52717100
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 52717098}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 13.5, y: 7.5, z: -1000}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1868656217}
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &142297437
 GameObject:
   m_ObjectHideFlags: 0
@@ -680,11 +725,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1868656217}
   - {fileID: 916773692}
   - {fileID: 1132356063}
-  - {fileID: 1162455551}
-  - {fileID: 20107731}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1097,7 +1139,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 428130958}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &1112395601
 GameObject:
@@ -1308,7 +1350,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 428130958}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1162455547
 GameObject:
@@ -1398,11 +1440,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1162455547}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 13.5, y: 7.5, z: 0.099999905}
-  m_LocalScale: {x: 2.8, y: 1, z: 1.6}
+  m_LocalPosition: {x: 0, y: 0, z: 1000.1}
+  m_LocalScale: {x: 2.8, y: 1, z: 1.6000001}
   m_Children: []
-  m_Father: {fileID: 428130958}
-  m_RootOrder: 3
+  m_Father: {fileID: 1868656217}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!1 &1475775419
 GameObject:
@@ -1752,9 +1794,9 @@ MonoBehaviour:
         rgba: 4278190080
     sound_changes:
     - sound_id: 0
-      filename: piano_middle_C.mp3
+      filename: piano_middle_C.wav
     - sound_id: 1
-      filename: Test.mp3
+      filename: Test.wav
     channel_changes:
     - sound_id: 0
       channel: 0
@@ -1770,6 +1812,11 @@ MonoBehaviour:
       pitch: 1
       looping: 0
       note: 0
+    camera_changes:
+      x: -5
+      y: 0
+      size: 8
+      angle: 30
   TestOutput: 
 --- !u!4 &1848945944
 Transform:
@@ -1898,10 +1945,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1868656214}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.5, y: 7.5, z: -1000}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 428130958}
+  m_Children:
+  - {fileID: 1162455551}
+  - {fileID: 20107731}
+  m_Father: {fileID: 52717100}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2092942129
@@ -1956,6 +2005,7 @@ MonoBehaviour:
   Writing: {fileID: 550009442}
   Text: {fileID: 1475775420}
   Sound: {fileID: 1112395602}
+  Camera: {fileID: 52717099}
 --- !u!1001 &2644381914369330763
 PrefabInstance:
   m_ObjectHideFlags: 0

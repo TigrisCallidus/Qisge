@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
     public WritingManager Writing;
     public TextManager Text;
     public SoundManager Sound;
-
+    public CameraManager Camera;
 
 
 
@@ -152,6 +152,7 @@ public class GameManager : MonoBehaviour
             File.WriteAllText(SpriteFilePath, string.Empty);
             Text.UpdateTexts(update.text_changes);
             Sound.UpdateSounds(update);
+            Camera.UpdateCamera(update.camera_changes);
         }
     }
 

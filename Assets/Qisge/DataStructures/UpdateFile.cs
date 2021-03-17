@@ -19,7 +19,7 @@ public class UpdateFile {
     public TextUpdate[] text_changes;
     public SoundFile[] sound_changes;
     public SoundUpdate[] channel_changes;
-
+    public CameraChanges camera_changes;
 }
 
 [System.Serializable]
