@@ -1,11 +1,12 @@
 import sys
+import traceback
 
 sys.path.append(sys.path[0]+'/Data/game')
 
 try:
     import game
-except Exception as e:
+except:
     import qisge 
-    qisge.print(e)
+    qisge.print(traceback.format_exc())
     qisge.update()
 
