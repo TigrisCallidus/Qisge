@@ -9,9 +9,9 @@ To start making your game, you’ll first need to download the [Qisge folder](ht
 
 ### Editing your game
 
-Use your normal filesystem browser to find the subfolder at [‘Assets/StreamingAssets/Exchange/Data/game’](Assets/StreamingAssets/Exchange/Data/game). This is the folder where your game lives. It should contain all the assets you will use (such as image and sound files). It should also contain a Python file called ‘game.py’, which is where your game program is written. Most of the rest of this tutorial is a guide on what to write in this file.
+Use your normal filesystem browser to find the subfolder at ['Assets/StreamingAssets/Exchange/Data/game'](Assets/StreamingAssets/Exchange/Data/game). This is the folder where your game lives. It should contain all the assets you will use (such as image and sound files). It should also contain a Python file called 'game.py', which is where your game program is written. Most of the rest of this tutorial is a guide on what to write in this file.
 
-You should fine an example game already there. You can just get rid of that.
+You should find an example game already there. You can just get rid of that!
 
 ### Running your game
 
@@ -38,20 +38,20 @@ Other packages you might need are:
 * `random`: randomness;
 * `PIL`: manipulating images.
 
-You’ll also want to import `qiskit` in some form, because using quantum computation with `qiskit` is what this game engine is all about. You can do this with
+You’ll also want to import Qiskit in some form, because using quantum computation with Qiskit is what this game engine is all about. You can do this with
 
 ```
 import qiskit
 ```
 
-or just import the specific qiskit tools you want to use with a line like this
+or just import the specific Qiskit tools you want to use with a line like this
 
 ```
 from qiskit import QuantumCircuit, assemble, run Aer
 ```
-Alternatively, you can import a tool built on top of `qiskit`, such as `quantum blur`.
+Alternatively, you can import a tool built on top of Qiskit, such as `quantumblur`.
 
-However you choose to import `qiskit`, not that it takes a while to do. So you might want to create a ‘loading’ message for your player while it loads.
+However you choose to import `qiskit`, note that it takes a while to do. So you might want to create a 'loading' message for your player while it loads.
 
 
 ### Handling inputs and outputs
@@ -72,17 +72,17 @@ Your game will need to act on the button presses from
 
 ### Displaying images
 
-Suppose you have a couple of images, ‘player.png’ and ‘enemy.png’ in your ‘game’ folder, and you want to make them appear on screen. First you need to load them by creating an `ImageList`. You can call this list whatever you like, but here we’ll call it `images`.
+Suppose you have a couple of images, 'player.png' and 'enemy.png' in your 'game' folder, and you want to make them appear on screen. First you need to load them by creating an `ImageList`. You can call this list whatever you like, but here we’ll call it `images`.
 
 ```
-images = qisge.ImageList([‘game/player.png’,’game/enemy.png’])
+images = qisge.ImageList(['game/player.png','game/enemy.png'])
 ```
 
-Lists in Python are indexed from 0. This means that the ‘game/player.png’ is at position 0 in this list, and game/enemy.png’ is at position 1. If we loaded another image it would be at position 2, and so on.
+Lists in Python are indexed from 0. This means that the 'game/player.png' is at position 0 in this list, and 'game/enemy.png' is at position 1. If we loaded another image it would be at position 2, and so on.
 
 Now you have loaded the images, you can create sprite objects with them. This is done with `qisge.Sprite(image_id)`.
 
-The `img` that needs to be provided here is the index of the desired image in the `ImageList`. For the image list we defined above, that means we should use a 0 to use ‘game/player.png’ and a 1 for ’game/enemy.png’. A sprite for the player can therefore be defined as follows
+The `image_id` that needs to be provided here is the index of the desired image in the `ImageList`. For the image list we defined above, that means we should use a 0 to use 'game/player.png' and a 1 for 'game/enemy.png'. A sprite for the player can therefore be defined as follows
 
 ```
 player = qisge.Sprite(0)
@@ -107,7 +107,7 @@ There is also a `z` position, which determines the order in which sprites are dr
 You can also change the image associated with a sprite using the attribute `image_id`. So if your player becomes an enemy, for example, you can change the image with
 
 ```
-player. image_id = 1
+player.image_id = 1
 ```
 
 Note that your sprite will only appear when you next call `qisge.update()`. Similarly, changes will appear only when you next call `qisge.update()`.
@@ -120,7 +120,7 @@ To define a block of text use `qisge.Text(text,width,height)`, where `text` is t
 For example, some text to tell the player that Qiskit is loading can be defined as
 
 ```
-loading = qisge.Text(‘Loading Qiskit’,16,2)
+loading = qisge.Text('Loading Qiskit',16,2)
 loading.x = 6
 loading.y = 8
 ```
