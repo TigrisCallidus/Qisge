@@ -16,13 +16,12 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
-{
+public class GameManager : MonoBehaviour {
 
     public bool RunPythonFile = true;
 
 
-    public string InputFile="input";
+    public string InputFile = "input";
     public string SpriteFile = "sprite";
     public string PythonBaseFile = "run";
 
@@ -75,9 +74,8 @@ public class GameManager : MonoBehaviour
 #endif
 
 
-    void Awake()
-    {
-        if (InputFile.Length<3) {
+    void Awake() {
+        if (InputFile.Length < 3) {
             InputFile = inputFile;
         } else {
             InputFile += ".txt";
@@ -121,8 +119,7 @@ public class GameManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         CheckFiles();
 
         CheckJob();
@@ -136,24 +133,37 @@ public class GameManager : MonoBehaviour
 
 
         if (Input.HasInput()) {
-            string input = File.ReadAllText(InputFilePath);
-            if (input.Length == 0) {
-                InputFile file = Input.Collect();
-                string json = JsonUtility.ToJson(file);
-                File.WriteAllText(InputFilePath, json);
+            using (FileStream inputReader = new FileStream(InputFilePath, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite)) {
+
+                if (inputReader.Length <= 10) {
+                    using (StreamWriter writer = new StreamWriter(inputReader)) {
+                        //string input = inputReader.ToString();
+                        //Debug.Log(input);
+                        InputFile file = Input.Collect();
+                        string json = JsonUtility.ToJson(file);
+                        writer.Write(json);
+                        //File.WriteAllText(InputFilePath, json);
+                    }
+                }
             }
         }
 
-        string data = File.ReadAllText(SpriteFilePath);
 
-        if (data.Length>0) {
-            UpdateFile update = JsonUtility.FromJson<UpdateFile>(data);
-            Visuals.UpdateAll(update);
-            File.WriteAllText(SpriteFilePath, string.Empty);
-            Text.UpdateTexts(update.text_changes);
-            Sound.UpdateSounds(update);
-            Camera.UpdateCamera(update.camera_changes);
+        //Todo could be made nicer using all correct data reader
+        using (FileStream dataReader = new FileStream(SpriteFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)) {
+
+            if (dataReader.Length > 10) {
+                string data = File.ReadAllText(SpriteFilePath);
+                UpdateFile update = JsonUtility.FromJson<UpdateFile>(data);
+                Visuals.UpdateAll(update);
+                File.WriteAllText(SpriteFilePath, string.Empty);
+                Text.UpdateTexts(update.text_changes);
+                Sound.UpdateSounds(update);
+                Camera.UpdateCamera(update.camera_changes);
+            }
+
         }
+
     }
 
     public void CheckJob() {

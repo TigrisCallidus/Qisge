@@ -48,6 +48,10 @@ public class SoundManager : MonoBehaviour {
             return;
         }
         for (int i = 0; i < soundfiles.Length; i++) {
+            if (soundfiles[i].sound_id<0) {
+                Debug.LogWarning("Sound id is not set for soundfile: " + soundfiles[i].filename);
+            }
+
             if (usedClips.ContainsKey(soundfiles[i].sound_id)) {
                 //Update audioclip
                 UpdateAudioClip(soundfiles[i].sound_id, soundfiles[i].filename);
@@ -100,7 +104,7 @@ public class SoundManager : MonoBehaviour {
         } else if (fileName.EndsWith(".ogg")) {
             return loadClipFromOGG(fileName);
         } else {
-            Debug.Log("No allowed file ending");
+            Debug.LogWarning("No allowed file ending with the file " + fileName );
             return null;
         }
     }
