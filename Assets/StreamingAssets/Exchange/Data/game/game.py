@@ -12,7 +12,7 @@ loading.set_font_color( (0,0,255) )
 qisge.update()
 
 # then import it (though we don't actually use it in this example game)
-import qiskit
+from qiskit import QuantumCircuit, execute, Aer
 
 # then hide the message
 loading.width = 0
@@ -78,6 +78,11 @@ while running:
         # move left
         player.x -= 0.2
         player.image_id = 2
+
+    #if  4 in input['key_presses']:
+    #    # play a note
+    #    middle_c.playmode = 1
+
     if 7 in input['key_presses']:
         # end game
         running = False
