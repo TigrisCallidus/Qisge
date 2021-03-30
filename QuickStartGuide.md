@@ -18,6 +18,10 @@ You find an example game already there. You can just get rid of that!
 You can just open the scene "QisgeMain" and press the play button in Unity in order to run your game.
 If you want to make a build, see [QCU](https://github.com/TigrisCallidus/QCU) for reference, since Qisge is based on QCU for running python files.
 
+### Creating a new game
+
+One simple way would be to just make a new unity project, however you could also make a second game in the same Unity project.
+
 If you want to try to make several different examples, or make your own example with leaving our example working, you can copy the QisgeMain scene and rename it e.g. QisgeMain2.
 Open your new scene and select the "GameManager". There you find the fields "Input File", "Sprite File" and "Python Base File".
 These stand for the files in Assets/StreamingAssets/Exchange with the same names. You can leave the "Input File" and "Sprite File" as is,
@@ -28,6 +32,7 @@ Then in the python file "run2" you can change the path from sys.path.append(sys.
 
 Save the Unity scene "QisgeMain2" and you can now work in the folder game2 on the game file and data (as described below), without interfering with the game of the original Unity Scene "QisgeMain"
 
+### Errors
 
 If there is a problem with your game which causes it to break, you will get an error message. If this message appears on screen when running the game, then it is a problem with the Python programming of the game or the game engine. If it appears in the Unity console, it is probably due to the system used to run the game. For the latter case, definitely tell us about it!
 
