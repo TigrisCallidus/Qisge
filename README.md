@@ -15,7 +15,7 @@ The setup for this works the same as for this project: [QCU](https://github.com/
 
 # How to Use
 
-In the scene "Simple Unity Example" is a simple example (SimpleExample) which is a Unity scriot which simmulates python communication, you can use that for reference to implement a python script.
+In the scene "Simple Unity Example" is a simple example (SimpleExample) which is a Unity script which simmulates python communication, you can use that for reference to implement a python script.
 
 In the scene "QisgeMain" we have already implemented a working python example.
 
@@ -23,8 +23,9 @@ In the same scene there is a GameManager on it you can specify how the files are
 The default file name is "sprite" for the file with the sprite changes (and all other changes from the python side). "input" is the default name for the file with the input changes and "run" for the pythonfile which should be run by Unity. (These are also the names which are used by our python example which is in the project)
 
 In the folder StreaingAssets/Exchange are the specified files, as well as a data folder. 
-If you want to use your own code you can overwrite the run file with your own code and use the DataFolder to put sprites in or other data you need in the game.
-However, we would advice to take a look at the current python example and the [Quickstart Guide](https://github.com/TigrisCallidus/Qisge/blob/main/QuickStartGuide.md)
+If you want to use your own code you can overwrite the game file which the run file links to with your own code and use the DataFolder to put sprites in or other data you need in the game.
+
+However, we would advice to take a look at the current python example and the [Quickstart Guide](https://github.com/TigrisCallidus/Qisge/blob/main/QuickStartGuide.md) where this is described more in detail.
 
 The run.py will automatically be started when the unity scene runs by the GameManager. You can deactivate this by deactivating "Run Python File" on the GameManager.
 
