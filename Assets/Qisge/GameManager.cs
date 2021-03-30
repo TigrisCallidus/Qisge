@@ -1,12 +1,27 @@
-﻿using System.Collections;
+﻿// -*- coding: utf-8 -*-
+
+// This code is part of Qiskit.
+//
+// (C) Copyright IBM 2020.
+//
+// This code is licensed under the Apache License, Version 2.0. You may
+// obtain a copy of this license in the LICENSE.txt file in the root directory
+// of this source tree or at http://www.apache.org/licenses/LICENSE-2.0.
+//
+// Any modifications or derivative works of this code must retain this
+// copyright notice, and modified files need to carry a notice indicating
+// that they have been altered from the originals.
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
-{
+public class GameManager : MonoBehaviour {
 
-    public string InputFile="input";
+    public bool RunPythonFile = true;
+
+
+    public string InputFile = "input";
     public string SpriteFile = "sprite";
     public string PythonBaseFile = "run";
 
@@ -14,9 +29,9 @@ public class GameManager : MonoBehaviour
     public VisualManager Visuals;
     public InputManager Input;
     public WritingManager Writing;
-
-
-
+    public TextManager Text;
+    public SoundManager Sound;
+    public CameraManager Camera;
 
 
 
@@ -24,6 +39,9 @@ public class GameManager : MonoBehaviour
 
 
     //const string filePath = "Testing";
+
+    //Minimum value which can be assigned to positions
+    public const int MinPosition = -1000;
 
     const string inputFile = "input.txt";
     const string spriteFile = "sprite.txt";
@@ -56,9 +74,8 @@ public class GameManager : MonoBehaviour
 #endif
 
 
-    void Awake()
-    {
-        if (InputFile.Length<3) {
+    void Awake() {
+        if (InputFile.Length < 3) {
             InputFile = inputFile;
         } else {
             InputFile += ".txt";
@@ -88,16 +105,21 @@ public class GameManager : MonoBehaviour
         //spriteFilePath = Path.Combine(Application.dataPath, filePath, spriteFile);
         //SpriteFolder = Path.Combine(Application.dataPath, spriteFolder);
         Application.targetFrameRate = 60;
+
+        File.WriteAllText(InputFilePath, string.Empty);
+        File.WriteAllText(SpriteFilePath, string.Empty);
+
     }
 
 
     private void Start() {
-        prepareAndStartJob();
+        if (RunPythonFile) {
+            prepareAndStartJob();
+        }
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update() {
         CheckFiles();
 
         CheckJob();
@@ -106,20 +128,42 @@ public class GameManager : MonoBehaviour
     }
 
     public void CheckFiles() {
-        string input = File.ReadAllText(InputFilePath);
-        string sprite = File.ReadAllText(SpriteFilePath);
 
-        if (input.Length==0) {
-            InputFile file = Input.Collect();
-            string json = JsonUtility.ToJson(file);
-            File.WriteAllText(InputFilePath, json);
+        Input.ControlledUpdate();
+
+
+        if (Input.HasInput()) {
+            using (FileStream inputReader = new FileStream(InputFilePath, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite)) {
+
+                if (inputReader.Length <= 10) {
+                    using (StreamWriter writer = new StreamWriter(inputReader)) {
+                        //string input = inputReader.ToString();
+                        //Debug.Log(input);
+                        InputFile file = Input.Collect();
+                        string json = JsonUtility.ToJson(file);
+                        writer.Write(json);
+                        //File.WriteAllText(InputFilePath, json);
+                    }
+                }
+            }
         }
 
-        if (sprite.Length>0) {
-            UpdateFile update = JsonUtility.FromJson<UpdateFile>(sprite);
-            Visuals.UpdateAll(update);
-            File.WriteAllText(SpriteFilePath, string.Empty);
+
+        //Todo could be made nicer using all correct data reader
+        using (FileStream dataReader = new FileStream(SpriteFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)) {
+
+            if (dataReader.Length > 10) {
+                string data = File.ReadAllText(SpriteFilePath);
+                UpdateFile update = JsonUtility.FromJson<UpdateFile>(data);
+                Visuals.UpdateAll(update);
+                File.WriteAllText(SpriteFilePath, string.Empty);
+                Text.UpdateTexts(update.text_changes);
+                Sound.UpdateSounds(update);
+                Camera.UpdateCamera(update.camera_changes);
+            }
+
         }
+
     }
 
     public void CheckJob() {

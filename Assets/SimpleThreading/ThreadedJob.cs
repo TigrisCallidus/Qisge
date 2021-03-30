@@ -38,7 +38,13 @@ public class ThreadedJob {
         m_Thread.Start();
     }
     public virtual void Abort() {
+        UnityEngine.Debug.Log("Aborting");
+        if (m_Thread == null) {
+            UnityEngine.Debug.Log("Thread is null");
+        }
         m_Thread?.Abort();
+        
+
     }
 
     protected virtual void ThreadFunction() { }

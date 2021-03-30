@@ -1,4 +1,17 @@
-﻿using System.Collections;
+﻿// -*- coding: utf-8 -*-
+
+// This code is part of Qiskit.
+//
+// (C) Copyright IBM 2020.
+//
+// This code is licensed under the Apache License, Version 2.0. You may
+// obtain a copy of this license in the LICENSE.txt file in the root directory
+// of this source tree or at http://www.apache.org/licenses/LICENSE-2.0.
+//
+// Any modifications or derivative works of this code must retain this
+// copyright notice, and modified files need to carry a notice indicating
+// that they have been altered from the originals.
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,15 +25,10 @@ public class InputManager : MonoBehaviour
     List<KeyPress> uniquePresses = new List<KeyPress>();
 
 
-    // Start is called before the first frame update
-    void Start()
+    public void ControlledUpdate()
     {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
+
         if (Input.GetMouseButtonDown(0)) {
             //Debug.Log(Input.mousePosition);
             Clickhappened(Input.mousePosition);
@@ -106,6 +114,13 @@ public class InputManager : MonoBehaviour
         return null;
     }
 
+    int count = 0;
+
+
+    public bool HasInput() {
+        return uniqueClicks.Count > 0 || uniquePresses.Count > 0;
+    }
+
     public InputFile Collect() {
 
         InputFile inputFile = new InputFile();
@@ -117,6 +132,12 @@ public class InputManager : MonoBehaviour
 
         presses.Clear();
         uniquePresses.Clear();
+
+        inputFile.count = count;
+
+        //Debug.Log("sending message number: " + count + " at time: " + Time.time);
+
+        count++;
 
         return inputFile;
     }

@@ -20,6 +20,7 @@ If you want to make a build, see [QCU](https://github.com/TigrisCallidus/QCU) fo
 Just make sure the correct scene is in the build settings. Currently the QisgeMain scene is the one being built.
 If you use a different scene (as described in the next section) add that scene to the build settings and delete QisgeMain from it.
 
+
 ### Creating a new game
 
 One simple way would be to just make a new unity project, however you could also make a second game in the same Unity project.
@@ -33,6 +34,7 @@ Then you can make a copy of the folder "game" under Assets/StreamingAssets/Excha
 Then in the python file "run2" you can change the path from sys.path.append(sys.path[0]+'/Data/game') to sys.path.append(sys.path[0]+'/Data/game2').
 
 Save the Unity scene "QisgeMain2" and you can now work in the folder game2 on the game file and data (as described below), without interfering with the game of the original Unity Scene "QisgeMain"
+
 
 ### Errors
 
