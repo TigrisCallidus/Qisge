@@ -4,20 +4,43 @@
 
 ## Getting Started
 
-To start making your game, you’ll first need to download the [Qisge folder](https://github.com/TigrisCallidus/Qisge/archive/refs/heads/main.zip). What you do with this folder then depends on whether you are editing your game files, or trying to run your game.
+To start making your game, you’ll first need to download the [Qisge folder](https://github.com/qiskit-community/Qisge/archive/refs/heads/main.zip). What you do with this folder then depends on whether you are editing your game files, or trying to run your game.
 
 
 ### Editing your game
 
 Use your normal filesystem browser to find the subfolder at ['Assets/StreamingAssets/Exchange/Data/game'](Assets/StreamingAssets/Exchange/Data/game). This is the folder where your game lives. It should contain all the assets you will use (such as image and sound files). It should also contain a Python file called 'game.py', which is where your game program is written. Most of the rest of this tutorial is a guide on what to write in this file.
 
-You should find an example game already there. You can just get rid of that!
+There is an example game already there, which you can look at to see how a game is made. But once you want to make your own, just get rid of the example files!
 
 ### Running your game
 
-**include info on how to import the scene, run it and maybe even how to make builds**
+You can just open the scene "QisgeMain" and press the play button in Unity in order to run your game.
+If you want to make a build, see [QCU](https://github.com/TigrisCallidus/QCU) for reference, since Qisge is based on QCU for running python files.
+Just make sure the correct scene is in the build settings. Currently the QisgeMain scene is the one being built.
+If you use a different scene (as described in the next section) add that scene to the build settings and delete QisgeMain from it.
 
-If there is a problem with your game which causes it to break, you will get an error message. If this message appears on screen when running the game, then it is a problem with the Python programming of the game or the game engine. If it appears in the Unity console, it is probably due to the system used to run the game. For the latter case, definitely tell us about it!
+### Creating a new game
+
+One simple way would be to just make a new unity project, however you could also make a second game in the same Unity project.
+
+If you want to try to make several different examples, or make your own example with leaving our example working, you can copy the QisgeMain scene and rename it e.g. QisgeMain2.
+Open your new scene and select the "GameManager". There you find the fields "Input File", "Sprite File" and "Python Base File".
+These stand for the files in Assets/StreamingAssets/Exchange with the same names. You can leave the "Input File" and "Sprite File" as is,
+but you can make a copy of the "run" file and rename it e.g. run2. You can then change the "Python Base File" to run2 to link the correct file.
+
+Then you can make a copy of the folder "game" under Assets/StreamingAssets/Exchange/Data/game and rename the new folder e.g. to game2.
+Then in the python file "run2" you can change the path from sys.path.append(sys.path[0]+'/Data/game') to sys.path.append(sys.path[0]+'/Data/game2').
+
+Save the Unity scene "QisgeMain2" and you can now work in the folder game2 on the game file and data (as described below), without interfering with the game of the original Unity Scene "QisgeMain"
+
+### Errors
+
+If there is a problem with your game which causes it to break, you will get an error message.
+
+If this message appears on screen when running the game, then is most likely a problem with your game program. It will give you some information to help you fix the issue.
+
+If the problem is within the file `run.py` or `qisge.py` then it is not your Python programming that is the problem but ours! Let us know in this case. Similarly, if it appears in the Unity console thenit is probably due to the system used to run the game. Again, definitely tell us about it.
 
 
 
@@ -47,7 +70,7 @@ import qiskit
 or just import the specific Qiskit tools you want to use with a line like this
 
 ```
-from qiskit import QuantumCircuit, assemble, run Aer
+from qiskit import QuantumCircuit, assemble, run, Aer
 ```
 Alternatively, you can import a tool built on top of Qiskit, such as `quantumblur`.
 
