@@ -164,4 +164,10 @@ loading.set_font_color( (0,255,0) )
 
 ### Playing sounds
 
+For sounds, as with images, we need to start by loading the files. This is done with `SoundList`, for example.
+
+```
+    sounds = qisge.SoundList(['game/piano_middle_C.mp3'])
+```
+
 **add details on this**
