@@ -49,7 +49,8 @@ public class SoundManager : MonoBehaviour {
         }
         for (int i = 0; i < soundfiles.Length; i++) {
             if (soundfiles[i].sound_id<0) {
-                Debug.LogWarning("Sound id is not set for soundfile: " + soundfiles[i].filename);
+                //Debug.LogWarning("Sound id is not set for soundfile: " + soundfiles[i].filename);
+                continue;
             }
 
             if (usedClips.ContainsKey(soundfiles[i].sound_id)) {
