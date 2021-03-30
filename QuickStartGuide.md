@@ -17,6 +17,8 @@ You find an example game already there. You can just get rid of that!
 
 You can just open the scene "QisgeMain" and press the play button in Unity in order to run your game.
 If you want to make a build, see [QCU](https://github.com/TigrisCallidus/QCU) for reference, since Qisge is based on QCU for running python files.
+Just make sure the correct scene is in the build settings. Currently the QisgeMain scene is the one being built.
+If you use a different scene (as described in the next section) add that scene to the build settings and delete QisgeMain from it.
 
 ### Creating a new game
 
