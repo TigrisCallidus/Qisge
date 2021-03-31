@@ -102,8 +102,6 @@ For key presses use `input[‘key_presses’]`. This gives a list of the keys th
 The button configuration can be changed using the unity [Input Manager](https://docs.unity3d.com/Manual/class-InputManager.html)
 
 
-Your game will need to act on the button presses from
-
 ### Displaying images
 
 Suppose you have a couple of images, 'player.png' and 'enemy.png' in your 'game' folder, and you want to make them appear on screen. First you need to load them by creating an `ImageList`. You can call this list whatever you like, but here we’ll call it `images`.
