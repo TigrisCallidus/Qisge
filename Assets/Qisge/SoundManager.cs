@@ -48,6 +48,11 @@ public class SoundManager : MonoBehaviour {
             return;
         }
         for (int i = 0; i < soundfiles.Length; i++) {
+            if (soundfiles[i].sound_id<0) {
+                //Debug.LogWarning("Sound id is not set for soundfile: " + soundfiles[i].filename);
+                continue;
+            }
+
             if (usedClips.ContainsKey(soundfiles[i].sound_id)) {
                 //Update audioclip
                 UpdateAudioClip(soundfiles[i].sound_id, soundfiles[i].filename);
@@ -63,11 +68,15 @@ public class SoundManager : MonoBehaviour {
             return;
         }
         for (int i = 0; i < sounds.Length; i++) {
+            if (sounds[i].channel<0) {
+                continue;
+            }
             //Debug.Log(sounds[i].channel);
             if (channels.ContainsKey(sounds[i].channel)) {
                 UpdateChannelInScene(sounds[i]);
             } else {
                 CheckDefaultValues(sounds[i]);
+                
                 channels.Add(sounds[i].channel, sounds[i]);
                 if (channelsInScene[sounds[i].channel] == null) {
                     channelsInScene[sounds[i].channel] = GenerateChannel(sounds[i]);
@@ -100,7 +109,7 @@ public class SoundManager : MonoBehaviour {
         } else if (fileName.EndsWith(".ogg")) {
             return loadClipFromOGG(fileName);
         } else {
-            Debug.Log("No allowed file ending");
+            Debug.LogWarning("No allowed file ending with the file " + fileName );
             return null;
         }
     }
@@ -237,6 +246,8 @@ public class SoundManager : MonoBehaviour {
 
         if (channels.ContainsKey(sound.channel)) {
             original = channels[sound.channel];
+        } else {
+            Debug.Log("Does not contain key" + sound.channel);
         }
 
         if (sound.channel<=SoundUpdate.MinValue) {

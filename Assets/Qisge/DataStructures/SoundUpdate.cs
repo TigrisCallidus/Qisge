@@ -15,8 +15,8 @@
 
 public class SoundFile {
 
-    public int sound_id;
-    public string filename;
+    public int sound_id=-1;
+    public string filename="No_Filename_defined!";
 }
 
 [System.Serializable]
