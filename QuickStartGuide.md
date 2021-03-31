@@ -4,14 +4,14 @@
 
 ## Getting Started
 
-To start making your game, you’ll first need to download the [Qisge folder](https://github.com/TigrisCallidus/Qisge/archive/refs/heads/main.zip). What you do with this folder then depends on whether you are editing your game files, or trying to run your game.
+To start making your game, you’ll first need to download the [Qisge folder](https://github.com/qiskit-community/Qisge/archive/refs/heads/main.zip). What you do with this folder then depends on whether you are editing your game files, or trying to run your game.
 
 
 ### Editing your game
 
 Use your normal filesystem browser to find the subfolder at ['Assets/StreamingAssets/Exchange/Data/game'](Assets/StreamingAssets/Exchange/Data/game). This is the folder where your game lives. It should contain all the assets you will use (such as image and sound files). It should also contain a Python file called 'game.py', which is where your game program is written. Most of the rest of this tutorial is a guide on what to write in this file.
 
-You find an example game already there. You can just get rid of that!
+There is an example game already there, which you can look at to see how a game is made. But once you want to make your own, just get rid of the example files!
 
 ### Running your game
 
@@ -19,6 +19,7 @@ You can just open the scene "QisgeMain" and press the play button in Unity in or
 If you want to make a build, see [QCU](https://github.com/TigrisCallidus/QCU) for reference, since Qisge is based on QCU for running python files.
 Just make sure the correct scene is in the build settings. Currently the QisgeMain scene is the one being built.
 If you use a different scene (as described in the next section) add that scene to the build settings and delete QisgeMain from it.
+
 
 ### Creating a new game
 
@@ -34,9 +35,14 @@ Then in the python file "run2" you can change the path from sys.path.append(sys.
 
 Save the Unity scene "QisgeMain2" and you can now work in the folder game2 on the game file and data (as described below), without interfering with the game of the original Unity Scene "QisgeMain"
 
+
 ### Errors
 
-If there is a problem with your game which causes it to break, you will get an error message. If this message appears on screen when running the game, then it is a problem with the Python programming of the game or the game engine. If it appears in the Unity console, it is probably due to the system used to run the game. For the latter case, definitely tell us about it!
+If there is a problem with your game which causes it to break, you will get an error message.
+
+If this message appears on screen when running the game, then is most likely a problem with your game program. It will give you some information to help you fix the issue.
+
+If the problem is within the file `run.py` or `qisge.py` then it is not your Python programming that is the problem but ours! Let us know in this case. Similarly, if it appears in the Unity console thenit is probably due to the system used to run the game. Again, definitely tell us about it.
 
 
 
@@ -66,7 +72,7 @@ import qiskit
 or just import the specific Qiskit tools you want to use with a line like this
 
 ```
-from qiskit import QuantumCircuit, assemble, run Aer
+from qiskit import QuantumCircuit, assemble, run, Aer
 ```
 Alternatively, you can import a tool built on top of Qiskit, such as `quantumblur`.
 
@@ -84,7 +90,16 @@ input = qisge.update()
 It will act upon all the changes you’ve made to sprites, text and sounds (see sections below for how to do this). It also looks at what inputs have been given since the last update and returns them as a dictionary, here called `input`.
 
 For key presses use `input[‘key_presses’]`. This gives a list of the keys that have been pressed, each represented by a number:
-* ** list the numbers**
+* 0 up button    / up direction on Gamepad
+* 1 right button / right direction on Gamepad
+* 2 down button  / down direction on Gamepad
+* 3 left button  / left direction on Gamepad
+* 4 Jump button  / space / gamepad button 3 
+* 5 Fire1 button / left ctrl  / gamepad button 0
+* 6 Fire2 button / left alt   / gamepad button 1
+* 7 Fire2 button / left shift / gamepad button 2
+
+The button configuration can be changed using the unity [Input Manager](https://docs.unity3d.com/Manual/class-InputManager.html)
 
 
 Your game will need to act on the button presses from
@@ -159,5 +174,11 @@ loading.set_font_color( (0,255,0) )
 ```
 
 ### Playing sounds
+
+For sounds, as with images, we need to start by loading the files. This is done with `SoundList`, for example.
+
+```
+    sounds = qisge.SoundList(['game/piano_middle_C.mp3'])
+```
 
 **add details on this**
