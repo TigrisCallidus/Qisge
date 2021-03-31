@@ -12,7 +12,7 @@ loading.set_font_color( (0,0,255) )
 qisge.update()
 
 # then import it (though we don't actually use it in this example game)
-from qiskit import QuantumCircuit, execute, Aer
+#from qiskit import QuantumCircuit, execute, Aer
 
 # then hide the message
 loading.width = 0

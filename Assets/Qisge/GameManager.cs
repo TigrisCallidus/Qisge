@@ -149,17 +149,21 @@ public class GameManager : MonoBehaviour {
         }
 
 
-        //Todo could be made nicer using all correct data reader
-        using (FileStream dataReader = new FileStream(SpriteFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite)) {
+        using (FileStream dataReader = new FileStream(SpriteFilePath, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite)) {
 
             if (dataReader.Length > 10) {
-                string data = File.ReadAllText(SpriteFilePath);
-                UpdateFile update = JsonUtility.FromJson<UpdateFile>(data);
-                Visuals.UpdateAll(update);
-                File.WriteAllText(SpriteFilePath, string.Empty);
-                Text.UpdateTexts(update.text_changes);
-                Sound.UpdateSounds(update);
-                Camera.UpdateCamera(update.camera_changes);
+                using (StreamReader reader = new StreamReader(dataReader)) {
+                    string data = reader.ReadToEnd();
+                    //string data = File.ReadAllText(SpriteFilePath);
+                    UpdateFile update = JsonUtility.FromJson<UpdateFile>(data);
+                    Visuals.UpdateAll(update);
+                    dataReader.SetLength(0);
+                    dataReader.Close();
+                    //File.WriteAllText(SpriteFilePath, string.Empty);
+                    Text.UpdateTexts(update.text_changes);
+                    Sound.UpdateSounds(update);
+                    Camera.UpdateCamera(update.camera_changes);
+                }
             }
 
         }
