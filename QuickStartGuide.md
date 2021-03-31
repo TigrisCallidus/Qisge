@@ -90,7 +90,16 @@ input = qisge.update()
 It will act upon all the changes you’ve made to sprites, text and sounds (see sections below for how to do this). It also looks at what inputs have been given since the last update and returns them as a dictionary, here called `input`.
 
 For key presses use `input[‘key_presses’]`. This gives a list of the keys that have been pressed, each represented by a number:
-* ** list the numbers**
+* 0 up button    / up direction on Gamepad
+* 1 right button / right direction on Gamepad
+* 2 down button  / down direction on Gamepad
+* 3 left button  / left direction on Gamepad
+* 4 Jump button  / space / gamepad button 3 
+* 5 Fire1 button / left ctrl  / gamepad button 0
+* 6 Fire2 button / left alt   / gamepad button 1
+* 7 Fire2 button / left shift / gamepad button 2
+
+The button configuration can be changed using the unity [Input Manager](https://docs.unity3d.com/Manual/class-InputManager.html)
 
 
 Your game will need to act on the button presses from
