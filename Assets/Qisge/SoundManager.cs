@@ -68,11 +68,15 @@ public class SoundManager : MonoBehaviour {
             return;
         }
         for (int i = 0; i < sounds.Length; i++) {
+            if (sounds[i].channel<0) {
+                continue;
+            }
             //Debug.Log(sounds[i].channel);
             if (channels.ContainsKey(sounds[i].channel)) {
                 UpdateChannelInScene(sounds[i]);
             } else {
                 CheckDefaultValues(sounds[i]);
+                
                 channels.Add(sounds[i].channel, sounds[i]);
                 if (channelsInScene[sounds[i].channel] == null) {
                     channelsInScene[sounds[i].channel] = GenerateChannel(sounds[i]);
@@ -242,6 +246,8 @@ public class SoundManager : MonoBehaviour {
 
         if (channels.ContainsKey(sound.channel)) {
             original = channels[sound.channel];
+        } else {
+            Debug.Log("Does not contain key" + sound.channel);
         }
 
         if (sound.channel<=SoundUpdate.MinValue) {

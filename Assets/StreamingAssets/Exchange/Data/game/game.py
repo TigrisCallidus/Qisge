@@ -81,7 +81,7 @@ while running:
 
     #if  4 in input['key_presses']:
     #    # play a note
-    #    middle_c.playmode = 1
+        #middle_c.playmode = 1
 
     if 7 in input['key_presses']:
         # end game
