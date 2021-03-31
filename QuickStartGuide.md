@@ -171,6 +171,19 @@ The font and the border of the text box are black by default, and the background
 loading.set_font_color( (0,255,0) )
 ```
 
+### Debugging
+
+When trying to figure out why a program isn't working, it is common to use `print` statements. With these you can see what is going on in your program by displaying the values of the variables.
+
+You can do this with the command
+
+```
+qisge.print(var)
+```
+
+Here the argument `var` can be anything. Whatever `var` you supply will be turned into a string of text and printed to screen, overlaid onto your game.
+
+
 ### Playing sounds
 
 **Currently this does not fully work. This will follow soon!**
