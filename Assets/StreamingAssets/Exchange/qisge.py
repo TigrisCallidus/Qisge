@@ -73,8 +73,9 @@ class _Engine():
             changes[attr] = self.__dict__[attr]
         # empty the record of changes
         self.image_changes = []
+        self.sound_changes = []
         self.camera_changes = {}
-        for attr in ['sprite_changes','camera_changes','text_changes','sound_changes','channel_changes']:
+        for attr in ['sprite_changes','text_changes','channel_changes']:
             self.__dict__[attr] = [{} for _ in range(len(self.__dict__[attr]))]
         # output the string of changes
         return json.dumps(changes)
