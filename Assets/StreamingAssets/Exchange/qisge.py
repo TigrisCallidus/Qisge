@@ -30,13 +30,13 @@ def _get_input():
         input = {'key_presses': [], 'clicks': []}
     return input
 
-def _update_screen():
+def _update_screen(wait=True):
     '''Gets the changes from the `_engine` and writes them to 'sprite.txt'.'''
     changes = _engine.get_changes()
     if changes:
         # if there are already changes in the queue, wait
         queue = _read('sprite.txt')
-        while queue!='':
+        while queue!='' and wait:
             time.sleep(1/100)
             queue = _read('sprite.txt')
         # write new changes
@@ -50,9 +50,9 @@ def _val_change(key,value,dictionary):
         val_change = True
     return val_change
 
-def update():
+def update(wait=True):
     '''Update screen and get input.'''
-    _update_screen()
+    _update_screen(wait=wait)
     return _get_input()
 
 
@@ -256,6 +256,3 @@ camera = Camera()
 
 _print_buffer = Text('',28,16,y=15)
 hide_print()
-
-
-
