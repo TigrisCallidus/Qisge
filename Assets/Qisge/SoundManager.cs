@@ -156,7 +156,7 @@ public class SoundManager : MonoBehaviour {
                 }
 
                 if (www.isNetworkError) {
-                    Debug.LogError(www.error);
+                    Debug.LogError("error occured: " + www.error + " while trying to access " + fileName);
                 } else {
                     Debug.Log("File loaded: " + fileName);
                     clip = DownloadHandlerAudioClip.GetContent(www);
