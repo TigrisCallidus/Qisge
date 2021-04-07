@@ -27,7 +27,7 @@ public class SoundUpdate {
 
     //Value between 0-999
     public int sound_id = MinValue;
-    public int channel = MinValue;
+    public int channel_id = MinValue;
     //0 = not playing, 1=oneshot, >1 = playing
     public int playmode = MinValue;
     //between 0 and 1. 1 means max volume, 0 means no sound
@@ -42,7 +42,7 @@ public class SoundUpdate {
         returnValue.volume = 0.5f;
         returnValue.pitch = 1;
         returnValue.playmode = 0;
-        returnValue.channel = 0;
+        returnValue.channel_id = 0;
         //returnValue.looping = 0;
         returnValue.note = MusicalNote.C;
         return returnValue;

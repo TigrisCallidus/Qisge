@@ -108,7 +108,7 @@ public class GameManager : MonoBehaviour {
 
         File.WriteAllText(InputFilePath, string.Empty);
         File.WriteAllText(SpriteFilePath, string.Empty);
-
+        Debug.Log("input cleared");
     }
 
 
@@ -155,14 +155,21 @@ public class GameManager : MonoBehaviour {
                 using (StreamReader reader = new StreamReader(dataReader)) {
                     string data = reader.ReadToEnd();
                     //string data = File.ReadAllText(SpriteFilePath);
-                    UpdateFile update = JsonUtility.FromJson<UpdateFile>(data);
-                    Visuals.UpdateAll(update);
+                    //try {
                     dataReader.SetLength(0);
                     dataReader.Close();
+                    UpdateFile update = JsonUtility.FromJson<UpdateFile>(data);
+                    Visuals.UpdateAll(update);
+
                     //File.WriteAllText(SpriteFilePath, string.Empty);
                     Text.UpdateTexts(update.text_changes);
                     Sound.UpdateSounds(update);
                     Camera.UpdateCamera(update.camera_changes);
+                    //}catch {
+                    //dataReader.SetLength(0);
+                    //dataReader.Close();
+                    //Debug.LogError("Catch involved " + data);
+                    //}
                 }
             }
 

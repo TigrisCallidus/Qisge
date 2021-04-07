@@ -35,6 +35,8 @@ public class SoundObject : MonoBehaviour {
             Source.Stop();
         } else if (sound.playmode == 1) {
             Source.PlayOneShot(Clip);
+            Debug.Log("One shot");
+            //Source.clip = Clip;
         } else if (sound.playmode > 1) {
             //default set to looping.
             Source.clip = Clip;
