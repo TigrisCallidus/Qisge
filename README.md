@@ -10,8 +10,7 @@ Alternatively you can make open a (new) Unity project and download and import th
 
 Add TextMeshPro to your Unity Project if it does not include it already (Window>PackatManager>TextMeshPro>Install)
 
-Copy a working python environment into the Folder /Assets/StreamingAssets/.q 
-The setup for this works the same as for this project: [QCU](https://github.com/TigrisCallidus/QCU)
+Copy a working python environment into the Folder '/Assets/StreamingAssets/.q'. This folder also contains a 'requirements.txt' that can be used to set up a suggested environment. The setup for this works the same as in the [QCU](https://github.com/TigrisCallidus/QCU) project.
 
 # How to Use
 
