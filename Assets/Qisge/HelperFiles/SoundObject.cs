@@ -33,11 +33,11 @@ public class SoundObject : MonoBehaviour {
 
         if (sound.playmode == 0) {
             Source.Stop();
-        } else if (sound.playmode == 1) {
+        } else if (sound.playmode > 1) {
             Source.PlayOneShot(Clip);
             Debug.Log("One shot");
             //Source.clip = Clip;
-        } else if (sound.playmode > 1) {
+        } else if (sound.playmode == 1) {
             //default set to looping.
             Source.clip = Clip;
             Source.Play();

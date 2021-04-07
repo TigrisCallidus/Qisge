@@ -156,8 +156,9 @@ public class SoundManager : MonoBehaviour {
                 }
 
                 if (www.isNetworkError) {
-                    Debug.Log(www.error);
+                    Debug.LogError(www.error);
                 } else {
+                    Debug.Log("File loaded: " + fileName);
                     clip = DownloadHandlerAudioClip.GetContent(www);
                 }
             }
@@ -184,8 +185,9 @@ public class SoundManager : MonoBehaviour {
                 }
 
                 if (www.isNetworkError) {
-                    Debug.Log(www.error);
+                    Debug.LogError(www.error);
                 } else {
+                    Debug.Log("File loaded: " + fileName);
                     clip = DownloadHandlerAudioClip.GetContent(www);
                 }
             }
