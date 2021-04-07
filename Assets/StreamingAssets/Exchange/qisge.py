@@ -162,7 +162,7 @@ class Sprite():
 
 class Sound():
 
-    def __init__(self,sound_id,playmode=0,volume=1,pitch=0,note=0):
+    def __init__(self,sound_id,playmode=0,volume=1,pitch=1,note=0):
         self.channel_id = len(_engine.channel_changes)
         _engine.channel_changes.append({})
 
