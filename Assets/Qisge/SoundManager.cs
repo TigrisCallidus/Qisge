@@ -147,7 +147,7 @@ public class SoundManager : MonoBehaviour {
         fileName = Path.Combine(GameManager.DataFolder, fileName);
 
 #if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
-        fileName = fileName.Insert(0, "file://");
+        fileName = fileName.Insert(0, "file:/");
 #endif
 
         if (File.Exists(fileName) && fileName.EndsWith(".wav")) {
@@ -180,7 +180,7 @@ public class SoundManager : MonoBehaviour {
         fileName = Path.Combine(GameManager.DataFolder, fileName);
 
 #if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
-        fileName = fileName.Insert(0, "file://");
+        fileName = fileName.Insert(0, "file:/");
 #endif
         if (File.Exists(fileName) && fileName.EndsWith(".ogg")) {
 
