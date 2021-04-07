@@ -44,11 +44,11 @@ public class SoundManager : MonoBehaviour {
     }
 
     public void UpdateClips(SoundFile[] soundfiles) {
-        if (soundfiles==null) {
+        if (soundfiles == null) {
             return;
         }
         for (int i = 0; i < soundfiles.Length; i++) {
-            if (soundfiles[i].sound_id<0) {
+            if (soundfiles[i].sound_id < 0) {
                 Debug.LogWarning("Sound id is not set for soundfile: " + soundfiles[i].filename);
                 continue;
             }
@@ -64,11 +64,11 @@ public class SoundManager : MonoBehaviour {
     }
 
     public void UpdateChannels(SoundUpdate[] sounds) {
-        if (sounds==null) {
+        if (sounds == null) {
             return;
         }
         for (int i = 0; i < sounds.Length; i++) {
-            if (sounds[i].channel_id<0) {
+            if (sounds[i].channel_id < 0) {
                 //Debug.Log("channel wrong:" + sounds[i].channel_id);
                 continue;
             } else {
@@ -79,7 +79,7 @@ public class SoundManager : MonoBehaviour {
                 UpdateChannelInScene(sounds[i]);
             } else {
                 CheckDefaultValues(sounds[i]);
-                
+
                 channels.Add(sounds[i].channel_id, sounds[i]);
                 if (channelsInScene[sounds[i].channel_id] == null) {
                     channelsInScene[sounds[i].channel_id] = GenerateChannel(sounds[i]);
@@ -113,7 +113,7 @@ public class SoundManager : MonoBehaviour {
         } else if (fileName.EndsWith(".ogg")) {
             return loadClipFromOGG(fileName);
         } else {
-            Debug.LogWarning("No allowed file ending with the file " + fileName );
+            Debug.LogWarning("No allowed file ending with the file " + fileName);
             return null;
         }
     }
@@ -146,13 +146,17 @@ public class SoundManager : MonoBehaviour {
 
         fileName = Path.Combine(GameManager.DataFolder, fileName);
 
+#if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
+        fileName = fileName.Insert(0, "file://");
+#endif
+
         if (File.Exists(fileName) && fileName.EndsWith(".wav")) {
 
             using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(fileName, AudioType.WAV)) {
                 www.SendWebRequest();
 
                 while (!www.isDone) {
-                    
+
                 }
 
                 if (www.isNetworkError) {
@@ -175,6 +179,9 @@ public class SoundManager : MonoBehaviour {
 
         fileName = Path.Combine(GameManager.DataFolder, fileName);
 
+#if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
+        fileName = fileName.Insert(0, "file://");
+#endif
         if (File.Exists(fileName) && fileName.EndsWith(".ogg")) {
 
             using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(fileName, AudioType.OGGVORBIS)) {
@@ -256,7 +263,7 @@ public class SoundManager : MonoBehaviour {
             Debug.Log("Does not contain key" + sound.channel_id);
         }
 
-        if (sound.channel_id<=SoundUpdate.MinValue) {
+        if (sound.channel_id <= SoundUpdate.MinValue) {
             sound.channel_id = original.channel_id;
         }
 
@@ -264,7 +271,7 @@ public class SoundManager : MonoBehaviour {
             sound.volume = original.volume;
         }
 
-        if (sound.pitch <= SoundUpdate.MinValue || sound.pitch==0) {
+        if (sound.pitch <= SoundUpdate.MinValue || sound.pitch == 0) {
             sound.pitch = original.pitch;
         }
 
