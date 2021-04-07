@@ -44,12 +44,12 @@ public class SoundManager : MonoBehaviour {
     }
 
     public void UpdateClips(SoundFile[] soundfiles) {
-        if (soundfiles==null) {
+        if (soundfiles == null) {
             return;
         }
         for (int i = 0; i < soundfiles.Length; i++) {
-            if (soundfiles[i].sound_id<0) {
-                //Debug.LogWarning("Sound id is not set for soundfile: " + soundfiles[i].filename);
+            if (soundfiles[i].sound_id < 0) {
+                Debug.LogWarning("Sound id is not set for soundfile: " + soundfiles[i].filename);
                 continue;
             }
 
@@ -64,22 +64,25 @@ public class SoundManager : MonoBehaviour {
     }
 
     public void UpdateChannels(SoundUpdate[] sounds) {
-        if (sounds==null) {
+        if (sounds == null) {
             return;
         }
         for (int i = 0; i < sounds.Length; i++) {
-            if (sounds[i].channel<0) {
+            if (sounds[i].channel_id < 0) {
+                //Debug.Log("channel wrong:" + sounds[i].channel_id);
                 continue;
+            } else {
+                Debug.Log("channel right:" + sounds[i].channel_id);
             }
-            //Debug.Log(sounds[i].channel);
-            if (channels.ContainsKey(sounds[i].channel)) {
+            Debug.Log(sounds[i].channel_id);
+            if (channels.ContainsKey(sounds[i].channel_id)) {
                 UpdateChannelInScene(sounds[i]);
             } else {
                 CheckDefaultValues(sounds[i]);
-                
-                channels.Add(sounds[i].channel, sounds[i]);
-                if (channelsInScene[sounds[i].channel] == null) {
-                    channelsInScene[sounds[i].channel] = GenerateChannel(sounds[i]);
+
+                channels.Add(sounds[i].channel_id, sounds[i]);
+                if (channelsInScene[sounds[i].channel_id] == null) {
+                    channelsInScene[sounds[i].channel_id] = GenerateChannel(sounds[i]);
                 } else {
                     UpdateChannelInScene(sounds[i]);
                 }
@@ -88,6 +91,7 @@ public class SoundManager : MonoBehaviour {
     }
 
     public void GenerateAudioClip(int sound_id, string filename) {
+        Debug.Log("Generate audioclip of " + filename);
         AudioClip clip = loadClip(filename);
         usedClips.Add(sound_id, clip);
     }
@@ -109,7 +113,7 @@ public class SoundManager : MonoBehaviour {
         } else if (fileName.EndsWith(".ogg")) {
             return loadClipFromOGG(fileName);
         } else {
-            Debug.LogWarning("No allowed file ending with the file " + fileName );
+            Debug.LogWarning("No allowed file ending with the file " + fileName);
             return null;
         }
     }
@@ -142,23 +146,30 @@ public class SoundManager : MonoBehaviour {
 
         fileName = Path.Combine(GameManager.DataFolder, fileName);
 
+
+
         if (File.Exists(fileName) && fileName.EndsWith(".wav")) {
+
+#if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
+        fileName = fileName.Insert(0, "file://");
+#endif
 
             using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(fileName, AudioType.WAV)) {
                 www.SendWebRequest();
 
                 while (!www.isDone) {
-                    
+
                 }
 
                 if (www.isNetworkError) {
-                    Debug.Log(www.error);
+                    Debug.LogError("error occured: " + www.error + " while trying to access " + fileName);
                 } else {
+                    Debug.Log("File loaded: " + fileName);
                     clip = DownloadHandlerAudioClip.GetContent(www);
                 }
             }
         } else {
-            Debug.LogError("File does not exist" + fileName);
+            Debug.LogError("File does not exist " + fileName);
         }
 
         return clip;
@@ -170,8 +181,12 @@ public class SoundManager : MonoBehaviour {
 
         fileName = Path.Combine(GameManager.DataFolder, fileName);
 
+
         if (File.Exists(fileName) && fileName.EndsWith(".ogg")) {
 
+#if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
+        fileName = fileName.Insert(0, "file://");
+#endif
             using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(fileName, AudioType.OGGVORBIS)) {
                 www.SendWebRequest();
 
@@ -180,8 +195,9 @@ public class SoundManager : MonoBehaviour {
                 }
 
                 if (www.isNetworkError) {
-                    Debug.Log(www.error);
+                    Debug.LogError(www.error);
                 } else {
+                    Debug.Log("File loaded: " + fileName);
                     clip = DownloadHandlerAudioClip.GetContent(www);
                 }
             }
@@ -217,7 +233,7 @@ public class SoundManager : MonoBehaviour {
             channel.Clip = usedClips[sound.sound_id];
         }
 
-        channel.name = "Channel: " + sound.channel;
+        channel.name = "Channel: " + sound.channel_id;
 
         channel.ApplySettings(sound);
 
@@ -228,10 +244,10 @@ public class SoundManager : MonoBehaviour {
 
     public void UpdateChannelInScene(SoundUpdate sound) {
 
-        SoundObject channel = channelsInScene[sound.channel];
+        SoundObject channel = channelsInScene[sound.channel_id];
 
         CheckDefaultValues(sound);
-        channels[sound.channel] = sound;
+        channels[sound.channel_id] = sound;
 
         if (usedClips.ContainsKey(sound.sound_id)) {
             channel.Clip = usedClips[sound.sound_id];
@@ -244,21 +260,21 @@ public class SoundManager : MonoBehaviour {
     public void CheckDefaultValues(SoundUpdate sound) {
         SoundUpdate original = SoundUpdate.Default();
 
-        if (channels.ContainsKey(sound.channel)) {
-            original = channels[sound.channel];
+        if (channels.ContainsKey(sound.channel_id)) {
+            original = channels[sound.channel_id];
         } else {
-            Debug.Log("Does not contain key" + sound.channel);
+            Debug.Log("Does not contain key" + sound.channel_id);
         }
 
-        if (sound.channel<=SoundUpdate.MinValue) {
-            sound.channel = original.channel;
+        if (sound.channel_id <= SoundUpdate.MinValue) {
+            sound.channel_id = original.channel_id;
         }
 
         if (sound.volume <= SoundUpdate.MinValue) {
             sound.volume = original.volume;
         }
 
-        if (sound.pitch <= SoundUpdate.MinValue) {
+        if (sound.pitch <= SoundUpdate.MinValue || sound.pitch == 0) {
             sound.pitch = original.pitch;
         }
 

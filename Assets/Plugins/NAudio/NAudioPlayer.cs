@@ -84,6 +84,7 @@ public static class NAudioPlayer {
 
         fileName = fileName.Replace(".mp3", "TEMPONLY.wav");
         WaveFileWriter.CreateWaveFile(fileName, mp3audio);
+        Debug.Log("Created wav file: " + fileName);
 
         return fileName;
     }

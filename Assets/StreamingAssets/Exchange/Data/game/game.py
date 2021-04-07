@@ -35,7 +35,8 @@ sounds = qisge.SoundList([
     'game/piano_middle_C.mp3'
 ])
 
-#middle_c = qisge.Sound(0)
+# set up a sound object
+middle_c = qisge.Sound(0)
 
 # set up screen
 sprite = {} # sprites for each tile
@@ -45,7 +46,7 @@ for x in range(28):
         sprite[x,y] = qisge.Sprite(4,x=x,y=y,z=0)
         
 # initialize player
-player = qisge.Sprite(0,x=x,y=y,z=0)
+player = qisge.Sprite(0)
 player.x = 7
 player.y = 7
 player.z = 1
@@ -79,9 +80,9 @@ while running:
         player.x -= 0.2
         player.image_id = 2
 
-    #if  4 in input['key_presses']:
-    #    # play a note
-        #middle_c.playmode = 1
+    if 4 in input['key_presses']:
+        # play a note
+        middle_c.playmode = 1
 
     if 7 in input['key_presses']:
         # end game
@@ -100,4 +101,3 @@ while running:
     
     # uncomment the following line to print these frame numbers to screen
     #qisge.print((frames,expected_frames))
-

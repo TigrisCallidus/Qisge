@@ -30,13 +30,13 @@ def _get_input():
         input = {'key_presses': [], 'clicks': []}
     return input
 
-def _update_screen():
+def _update_screen(wait=True):
     '''Gets the changes from the `_engine` and writes them to 'sprite.txt'.'''
     changes = _engine.get_changes()
     if changes:
         # if there are already changes in the queue, wait
         queue = _read('sprite.txt')
-        while queue!='':
+        while queue!='' and wait:
             time.sleep(1/100)
             queue = _read('sprite.txt')
         # write new changes
@@ -50,9 +50,9 @@ def _val_change(key,value,dictionary):
         val_change = True
     return val_change
 
-def update():
+def update(wait=True):
     '''Update screen and get input.'''
-    _update_screen()
+    _update_screen(wait=wait)
     return _get_input()
 
 
@@ -73,8 +73,9 @@ class _Engine():
             changes[attr] = self.__dict__[attr]
         # empty the record of changes
         self.image_changes = []
+        self.sound_changes = []
         self.camera_changes = {}
-        for attr in ['sprite_changes','camera_changes','text_changes','sound_changes','channel_changes']:
+        for attr in ['sprite_changes','text_changes','channel_changes']:
             self.__dict__[attr] = [{} for _ in range(len(self.__dict__[attr]))]
         # output the string of changes
         return json.dumps(changes)
@@ -161,7 +162,7 @@ class Sprite():
 
 class Sound():
 
-    def __init__(self,sound_id,playmode=0,volume=1,pitch=0,note=0):
+    def __init__(self,sound_id,playmode=0,volume=1,pitch=1,note=0):
         self.channel_id = len(_engine.channel_changes)
         _engine.channel_changes.append({})
 
@@ -256,6 +257,3 @@ camera = Camera()
 
 _print_buffer = Text('',28,16,y=15)
 hide_print()
-
-
-
