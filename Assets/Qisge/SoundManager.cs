@@ -146,11 +146,13 @@ public class SoundManager : MonoBehaviour {
 
         fileName = Path.Combine(GameManager.DataFolder, fileName);
 
-#if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
-        fileName = fileName.Insert(0, "file:/");
-#endif
+
 
         if (File.Exists(fileName) && fileName.EndsWith(".wav")) {
+
+#if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
+        fileName = fileName.Insert(0, "file://");
+#endif
 
             using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(fileName, AudioType.WAV)) {
                 www.SendWebRequest();
@@ -167,7 +169,7 @@ public class SoundManager : MonoBehaviour {
                 }
             }
         } else {
-            Debug.LogError("File does not exist" + fileName);
+            Debug.LogError("File does not exist " + fileName);
         }
 
         return clip;
@@ -179,11 +181,12 @@ public class SoundManager : MonoBehaviour {
 
         fileName = Path.Combine(GameManager.DataFolder, fileName);
 
-#if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
-        fileName = fileName.Insert(0, "file:/");
-#endif
+
         if (File.Exists(fileName) && fileName.EndsWith(".ogg")) {
 
+#if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
+        fileName = fileName.Insert(0, "file://");
+#endif
             using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(fileName, AudioType.OGGVORBIS)) {
                 www.SendWebRequest();
 
