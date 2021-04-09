@@ -1,5 +1,0 @@
-
-  qiskit
-  PIL
-  git+https://github.com/if-quantum/pairwise-tomography.git
-  git+https://github.com/qiskit-community/QuantumBlur.git
