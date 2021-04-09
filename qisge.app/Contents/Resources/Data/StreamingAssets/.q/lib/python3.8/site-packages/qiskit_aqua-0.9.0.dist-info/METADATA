@@ -1,0 +1,62 @@
+Metadata-Version: 2.1
+Name: qiskit-aqua
+Version: 0.9.0
+Summary: Qiskit Aqua: An extensible library of quantum computing algorithms
+Home-page: https://github.com/Qiskit/qiskit-aqua
+Author: Qiskit Aqua Development Team
+Author-email: hello@qiskit.org
+License: Apache-2.0
+Keywords: qiskit sdk quantum aqua
+Platform: UNKNOWN
+Classifier: Environment :: Console
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: MacOS
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Scientific/Engineering
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: qiskit-terra (<0.18.0,>=0.17.0)
+Requires-Dist: qiskit-ignis (<0.7.0,>=0.6.0)
+Requires-Dist: scipy (<=1.6.1,>=1.4)
+Requires-Dist: sympy (<=1.7.1,>=1.3)
+Requires-Dist: numpy (<=1.20.1,>=1.17)
+Requires-Dist: psutil (<=5.8.0,>=5)
+Requires-Dist: scikit-learn (<=0.24.1,>=0.20.0)
+Requires-Dist: dlx (<=1.0.4)
+Requires-Dist: fastdtw (<=0.3.4)
+Requires-Dist: setuptools (>=40.1.0)
+Requires-Dist: h5py (<=3.1.0)
+Requires-Dist: pandas (<=1.2.3)
+Requires-Dist: quandl (<=3.6.0)
+Requires-Dist: yfinance (<=0.1.55)
+Requires-Dist: retworkx (<=0.8.0,>=0.7.0)
+Requires-Dist: dataclasses ; python_version < "3.7"
+Requires-Dist: docplex (<=2.20.204) ; sys_platform != "darwin"
+Requires-Dist: docplex (==2.15.194) ; sys_platform == "darwin"
+Provides-Extra: cplex
+Requires-Dist: cplex (<=20.1.0.1) ; (python_version < "3.9") and extra == 'cplex'
+Provides-Extra: cvx
+Requires-Dist: cvxpy (!=1.1.0,!=1.1.1,!=1.1.2,!=1.1.8,<=1.1.11,>1.0.0) ; extra == 'cvx'
+Provides-Extra: pyscf
+Requires-Dist: pyscf (<=1.7.5.2) ; (sys_platform != "win32") and extra == 'pyscf'
+Provides-Extra: skquant
+Requires-Dist: scikit-quant (<=0.8.0) ; extra == 'skquant'
+Provides-Extra: torch
+Requires-Dist: torch (<=1.8.0) ; extra == 'torch'
+
+<a href="https://qiskit.org/aqua" rel=nofollow>Qiskit Aqua</a> is an extensible,
+modular, open-source library of quantum computing algorithms.
+Researchers can experiment with Aqua algorithms, on near-term quantum devices and simulators,
+and can also get involved by contributing new algorithms and algorithm-supporting objects,
+such as optimizers and variational forms.
+Qiskit Aqua also contains application domain support in the form of the chemistry, finance,
+machine learning and optimization modules to experiment with real-world applications to quantum computing.
+
