@@ -186,10 +186,16 @@ Here the argument `var` can be anything. Whatever `var` you supply will be turne
 
 ### Playing sounds
 
-**Currently this does not fully work. This will follow soon!**
-
 For sounds, as with images, we need to start by loading the files. This is done with `SoundList`, for example.
 
 ```
-    sounds = qisge.SoundList(['game/piano_middle_C.mp3'])
+sounds = qisge.SoundList(['game/piano_middle_C.mp3'])
 ```
+
+Once you have loaded the images, you can create sound objects with them. This is done with `qisge.Sound(sound_id)`, much the same as with images. The `sound_id` that needs to be provided here is the index of the desired image in the `SoundList`. For the image list defined above, that means we should use a 0 to use 'game/piano_middle_C.mp3', such as
+
+```
+middle_c = qisge.Sound(0)
+```
+
+Sound objects have a `playmode` attribite, with `playmode=0` by default which corresponds to the sound not playing. For `playmode=1`, the sound plays continuously. For every other positive integer, the sound plays once. To play it again, `playmode` needs to be changed to a different value.
