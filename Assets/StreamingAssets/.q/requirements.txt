@@ -2,4 +2,5 @@
   qiskit
   pillow
   git+https://github.com/if-quantum/pairwise-tomography.git
+  git+https://github.com/qiskit-community/QuantumGraph.git
   git+https://github.com/qiskit-community/QuantumBlur.git
