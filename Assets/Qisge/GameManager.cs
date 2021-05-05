@@ -124,7 +124,9 @@ public class GameManager : MonoBehaviour {
 
         CheckJob();
 
-
+        if (UnityEngine.Input.GetKeyDown( KeyCode.Escape)) {
+            Application.Quit();
+        }
     }
 
     public void CheckFiles() {
