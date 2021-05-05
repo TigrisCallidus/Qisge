@@ -1,46 +1,6 @@
 import json
-from os.path import dirname, abspath, join
-import time
+from renderer import _get_input, _update_screen
 
-
-def _read(filename):
-    '''Returns the contents of the given file.'''
-    filename=join( dirname(abspath(__file__)), filename)
-    with open(filename,'r') as file:
-        return file.read()
-      
-def _write(filename,message):
-    '''Writes the given message to the given file.'''
-    filename=join( dirname(abspath(__file__)), filename)
-    with open(filename,'w') as file:
-        file.write(message)
-
-def _scrub():
-    '''Empties the files 'sprite.txt' and 'input.txt'.'''
-    _write('sprite.txt','')
-    _write('input.txt','')
-
-def _get_input():
-    '''Returns the dictionary of inputs from 'input.txt' and empties the file.'''
-    raw_input = _read('input.txt')
-    _write('input.txt','')
-    if raw_input:
-        input = json.loads(raw_input)
-    else:
-        input = {'key_presses': [], 'clicks': []}
-    return input
-
-def _update_screen(wait=True):
-    '''Gets the changes from the `_engine` and writes them to 'sprite.txt'.'''
-    changes = _engine.get_changes()
-    if changes:
-        # if there are already changes in the queue, wait
-        queue = _read('sprite.txt')
-        while queue!='' and wait:
-            time.sleep(1/100)
-            queue = _read('sprite.txt')
-        # write new changes
-        _write('sprite.txt',changes)
 
 def _val_change(key,value,dictionary):
     '''Returns whether the given dictionary has the given value at the given key.'''
@@ -52,7 +12,7 @@ def _val_change(key,value,dictionary):
 
 def update(wait=True):
     '''Update screen and get input.'''
-    _update_screen(wait=wait)
+    _update_screen(_engine, wait=wait)
     return _get_input()
 
 
@@ -60,23 +20,25 @@ class _Engine():
     
     def __init__(self):
         self.image_changes = []
-        self.sprite_changes = []
+        self.sprite_changes = {}
         self.camera_changes = {}
-        self.text_changes = []
+        self.text_changes = {}
         self.sound_changes = []
-        self.channel_changes = []
+        self.channel_changes = {}
                 
     def get_changes(self):
         # make the changes dictionary
         changes = {}
         for attr in self.__dict__:
-            changes[attr] = self.__dict__[attr]
+            if attr in ['sprite_changes','text_changes','channel_changes']:
+                changes[attr] = list(self.__dict__[attr].values())
+            else:
+                changes[attr] = self.__dict__[attr]
         # empty the record of changes
         self.image_changes = []
         self.sound_changes = []
-        self.camera_changes = {}
-        for attr in ['sprite_changes','text_changes','channel_changes']:
-            self.__dict__[attr] = [{} for _ in range(len(self.__dict__[attr]))]
+        for attr in ['sprite_changes','text_changes','channel_changes','camera_changes']:
+            self.__dict__[attr] = {}
         # output the string of changes
         return json.dumps(changes)
 
@@ -139,7 +101,7 @@ class Sprite():
     def __init__(self,image_id,x=0,y=0,z=0,size=1,angle=0,flip_h=0,flip_v=0):
         
         self.sprite_id = len(_engine.sprite_changes)
-        _engine.sprite_changes.append({})
+        _engine.sprite_changes[self.sprite_id] = {}
         
         self.image_id = image_id
         self.x = x
@@ -155,6 +117,8 @@ class Sprite():
         if _val_change(name,val,self.__dict__):
             if name!='sprite_id':
                 # record the updated value for the thing that's changed
+                if self.sprite_id not in _engine.sprite_changes:
+                    _engine.sprite_changes[self.sprite_id] = {}
                 _engine.sprite_changes[self.sprite_id]['sprite_id'] = self.sprite_id
                 _engine.sprite_changes[self.sprite_id][name] = val
             self.__dict__[name] = val
@@ -164,7 +128,7 @@ class Sound():
 
     def __init__(self,sound_id,playmode=0,volume=1,pitch=1,note=0):
         self.channel_id = len(_engine.channel_changes)
-        _engine.channel_changes.append({})
+        _engine.channel_changes[self.channel_id] = {}
 
         self.sound_id = sound_id
         self.playmode = playmode
@@ -177,6 +141,8 @@ class Sound():
         if _val_change(name,val,self.__dict__):
             if name!='channel_id':
                 # record the updated value for the thing that's changed
+                if self.channel_id not in _engine.channel_changes:
+                    _engine.channel_changes[self.channel_id] = {}
                 _engine.channel_changes[self.channel_id]['channel_id'] = self.channel_id
                 _engine.channel_changes[self.channel_id][name] = val
             self.__dict__[name] = val
@@ -186,7 +152,7 @@ class Text():
     def __init__(self,text,width,height,x=0,y=0,font_size=0,font=0,angle=0,font_color={"r":0,"g":0,"b":0,"a":255},background_color={"r":255,"g":255,"b":255,"a":255},border_color={"r":0,"g":0,"b":0,"a":255}):
 
         self.text_id = len(_engine.text_changes)
-        _engine.text_changes.append({})
+        _engine.text_changes[self.text_id] = {}
         
         self.text = text
         self.x = x
@@ -211,6 +177,8 @@ class Text():
                 if name[0]=='_':
                     name = name [1::]
                 # record the updated value for the thing that's changed
+                if self.text_id not in _engine.text_changes:
+                    _engine.text_changes[self.text_id] = {}
                 _engine.text_changes[self.text_id]['text_id'] = self.text_id
                 _engine.text_changes[self.text_id][name] = val
 
@@ -251,7 +219,6 @@ def hide_print():
     _print_buffer.set_border_color((255,255,255,0))
 
 
-_scrub()
 _engine = _Engine()
 camera = Camera()
 
