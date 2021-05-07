@@ -30,9 +30,8 @@ def _get_input():
         input = {'key_presses': [], 'clicks': []}
     return input
 
-def _update_screen(engine,wait=True):
-    '''Gets the changes from the engine and writes them to 'sprite.txt'.'''
-    changes = engine.get_changes()
+def _update_screen(changes,wait=True):
+    '''Write the changes from the engine to 'sprite.txt'.'''
     if changes:
         # if there are already changes in the queue, wait
         queue = _read('sprite.txt')

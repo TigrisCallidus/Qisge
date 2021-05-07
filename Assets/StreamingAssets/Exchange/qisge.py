@@ -1,6 +1,7 @@
 import json
 from renderer import _get_input, _update_screen
 
+FPS = 30
 
 def _val_change(key,value,dictionary):
     '''Returns whether the given dictionary has the given value at the given key.'''
@@ -12,7 +13,7 @@ def _val_change(key,value,dictionary):
 
 def update(wait=True):
     '''Update screen and get input.'''
-    _update_screen(_engine, wait=wait)
+    _update_screen(_engine.get_changes(), wait=wait)
     return _get_input()
 
 
