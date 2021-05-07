@@ -1792,14 +1792,14 @@ MonoBehaviour:
       filename: Test.wav
     channel_changes:
     - sound_id: 0
-      channel: 0
+      channel_id: -10
       playmode: 1
       volume: 1
       pitch: 1
       looping: 1
       note: 0
     - sound_id: 1
-      channel: 1
+      channel_id: -10
       playmode: 2
       volume: 1
       pitch: 1
@@ -1991,9 +1991,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RunPythonFile: 1
-  InputFile: input
-  SpriteFile: sprite
-  PythonBaseFile: run
+  Config:
+    InputFile: input
+    SpriteFile: sprite
+    PythonBaseFile: run
+    GameFolder: game
   Visuals: {fileID: 1604284588}
   Input: {fileID: 469603568}
   Writing: {fileID: 550009442}

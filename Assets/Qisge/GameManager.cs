@@ -18,12 +18,20 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour {
 
+    //only set to false for testing unity scene
     public bool RunPythonFile = true;
 
+
+    public QisgeConfig Config;
+
+    /*
 
     public string InputFile = "input";
     public string SpriteFile = "sprite";
     public string PythonBaseFile = "run";
+    public string GameFolder = "game";
+
+    */
 
     //Linking
     public VisualManager Visuals;
@@ -46,7 +54,7 @@ public class GameManager : MonoBehaviour {
     const string inputFile = "input.txt";
     const string spriteFile = "sprite.txt";
     const string runFile = "run.py";
-    const string dataFolder = "Data";
+    const string dataFolder = "Data/game";
 
 
     public static string DataFolder;
@@ -75,28 +83,41 @@ public class GameManager : MonoBehaviour {
 
 
     void Awake() {
-        if (InputFile.Length < 3) {
-            InputFile = inputFile;
-        } else {
-            InputFile += ".txt";
+
+        string configPath = Path.Combine(Application.streamingAssetsPath, exchange) + "qisge.config";
+        if (File.Exists(configPath)) {
+            Debug.Log("config found");
+            string json = File.ReadAllText(configPath);
+            Config = JsonUtility.FromJson<QisgeConfig>(json);
         }
 
-        if (SpriteFile.Length < 3) {
-            SpriteFile = spriteFile;
+        if (Config.InputFile.Length < 3) {
+            Config.InputFile = inputFile;
         } else {
-            SpriteFile += ".txt";
+            Config.InputFile += ".txt";
         }
 
-        if (PythonBaseFile.Length < 3) {
-            PythonBaseFile = runFile;
+        if (Config.SpriteFile.Length < 3) {
+            Config.SpriteFile = spriteFile;
         } else {
-            PythonBaseFile += ".py";
+            Config.SpriteFile += ".txt";
         }
 
-        InputFilePath = Path.Combine(Application.streamingAssetsPath, exchange, InputFile);
-        SpriteFilePath = Path.Combine(Application.streamingAssetsPath, exchange, SpriteFile);
-        RunFilePath = Path.Combine(Application.streamingAssetsPath, exchange, PythonBaseFile);
+        if (Config.PythonBaseFile.Length < 3) {
+            Config.PythonBaseFile = runFile;
+        } else {
+            Config.PythonBaseFile += ".py";
+        }
+
+        if (Config.GameFolder.Length < 3) {
+            Config.GameFolder = dataFolder;
+        }
+
+        InputFilePath = Path.Combine(Application.streamingAssetsPath, exchange, Config.InputFile);
+        SpriteFilePath = Path.Combine(Application.streamingAssetsPath, exchange, Config.SpriteFile);
+        RunFilePath = Path.Combine(Application.streamingAssetsPath, exchange, Config.PythonBaseFile);
         DataFolder = Path.Combine(Application.streamingAssetsPath, exchange, dataFolder);
+
 
         PythonPath = Application.streamingAssetsPath + pythonEXE;
 
@@ -124,7 +145,9 @@ public class GameManager : MonoBehaviour {
 
         CheckJob();
 
-
+        if (UnityEngine.Input.GetKeyDown( KeyCode.Escape)) {
+            Application.Quit();
+        }
     }
 
     public void CheckFiles() {
