@@ -51,10 +51,13 @@ public class GameManager : MonoBehaviour {
     //Minimum value which can be assigned to positions
     public const int MinPosition = -1000;
 
+    //default values
     const string inputFile = "input.txt";
     const string spriteFile = "sprite.txt";
     const string runFile = "run.py";
-    const string dataFolder = "Data/game";
+    const string runFileTemp = "runTemp.py";
+
+    const string gameFolder = "Data/game";
 
 
     public static string DataFolder;
@@ -63,11 +66,13 @@ public class GameManager : MonoBehaviour {
     public static string SpriteFilePath = "";
 
     public static string RunFilePath = "";
+    public static string TempRunFilePath = "";
     public static string PythonPath = "";
 
     PythonJob pythonJob;
 
 
+    const string dataFolder = "Data";
     const string exchange = @"Exchange/";
 #if UNITY_STANDALONE_WIN
     const string pythonEXE = @"/.q/python.exe";
@@ -94,32 +99,52 @@ public class GameManager : MonoBehaviour {
         if (Config.InputFile.Length < 3) {
             Config.InputFile = inputFile;
         } else {
-            Config.InputFile += ".txt";
+            if (!Config.InputFile.EndsWith(".txt")) {
+                Config.InputFile += ".txt";
+            }
         }
 
         if (Config.SpriteFile.Length < 3) {
             Config.SpriteFile = spriteFile;
         } else {
-            Config.SpriteFile += ".txt";
+            if (!Config.SpriteFile.EndsWith(".txt")) {
+                Config.SpriteFile += ".txt";
+            }
         }
 
         if (Config.PythonBaseFile.Length < 3) {
             Config.PythonBaseFile = runFile;
         } else {
-            Config.PythonBaseFile += ".py";
+            if (!Config.PythonBaseFile.EndsWith(".py")) {
+                Config.PythonBaseFile += ".py";
+            }
         }
 
         if (Config.GameFolder.Length < 3) {
-            Config.GameFolder = dataFolder;
+            Config.GameFolder = gameFolder;
+        } else {
+            Config.GameFolder = Path.Combine(dataFolder, Config.GameFolder);
         }
 
         InputFilePath = Path.Combine(Application.streamingAssetsPath, exchange, Config.InputFile);
         SpriteFilePath = Path.Combine(Application.streamingAssetsPath, exchange, Config.SpriteFile);
         RunFilePath = Path.Combine(Application.streamingAssetsPath, exchange, Config.PythonBaseFile);
-        DataFolder = Path.Combine(Application.streamingAssetsPath, exchange, dataFolder);
 
+
+        DataFolder = Path.Combine(Application.streamingAssetsPath, exchange, Config.GameFolder);
+
+        Debug.Log(gameFolder);
 
         PythonPath = Application.streamingAssetsPath + pythonEXE;
+
+
+        //Creating temp file with correct path
+
+        TempRunFilePath = RunFilePath.Replace(Config.PythonBaseFile, runFileTemp);
+
+        string runFileContent = File.ReadAllText(RunFilePath);
+        runFileContent=runFileContent.Replace(gameFolder, Config.GameFolder);
+        File.WriteAllText(TempRunFilePath, runFileContent);
 
 
         //inputFilePath = Path.Combine(Application.dataPath, filePath, inputFile);
@@ -129,7 +154,7 @@ public class GameManager : MonoBehaviour {
 
         File.WriteAllText(InputFilePath, string.Empty);
         File.WriteAllText(SpriteFilePath, string.Empty);
-        Debug.Log("input cleared");
+        //Debug.Log("input cleared");
     }
 
 
@@ -217,7 +242,7 @@ public class GameManager : MonoBehaviour {
 
         pythonJob = new PythonJob();
         pythonJob.PythonPath = PythonPath;
-        pythonJob.FilePath = RunFilePath;
+        pythonJob.FilePath = TempRunFilePath;
 
 
         pythonJob.Start();
@@ -230,6 +255,11 @@ public class GameManager : MonoBehaviour {
 
     private void OnDestroy() {
         pythonJob?.Abort();
+
+
+        File.WriteAllText(InputFilePath, string.Empty);
+        File.WriteAllText(SpriteFilePath, string.Empty);
+        File.Delete(TempRunFilePath);
     }
 
 

@@ -25,17 +25,17 @@ import math
 
 
 # target frame rate
-FPS = 10 
+FPS = 30 
 
 # load images
 images = qisge.ImageList([
-    'game/terrain-water.png',
-    'game/terrain-red-flower.png',
-    'game/terrain-grass.png',
-    'game/terrain-path.png',
-    'game/terrain-grass.png',
-    'game/terrain-purple-flower.png',
-    'game/terrain-tree.png',
+    'terrain-water.png',
+    'terrain-red-flower.png',
+    'terrain-grass.png',
+    'terrain-path.png',
+    'terrain-grass.png',
+    'terrain-purple-flower.png',
+    'terrain-tree.png',
     ])
 terrain_types = len(images)
 
