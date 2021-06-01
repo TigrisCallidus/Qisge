@@ -35,6 +35,8 @@ public class ThreadedJob {
 
     public virtual void Start() {
         m_Thread = new System.Threading.Thread(Run);
+        //Setting high priority
+        m_Thread.Priority = System.Threading.ThreadPriority.Highest;
         m_Thread.Start();
     }
     public virtual void Abort() {

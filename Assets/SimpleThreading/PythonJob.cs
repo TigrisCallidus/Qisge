@@ -38,8 +38,7 @@ public class PythonJob : ThreadedJob {
 
         process = new Process();
         string pythonPath = PythonPath;
-        string filePath = FilePath;
-
+        string filePath = FilePath;        
 
 
         process.StartInfo.FileName = pythonPath;
@@ -51,7 +50,13 @@ public class PythonJob : ThreadedJob {
         process.StartInfo.RedirectStandardOutput = true;
         process.StartInfo.RedirectStandardError = true;
 
+
+
         process.Start();
+
+
+        //setting real time (verry high) priority for the process
+        process.PriorityClass = ProcessPriorityClass.RealTime;
 
         StreamReader reader = process.StandardOutput;
         string output = reader.ReadToEnd();
