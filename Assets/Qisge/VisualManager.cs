@@ -43,8 +43,16 @@ public class VisualManager : MonoBehaviour {
 
 
     public void UpdateAll(UpdateFile update) {
-        UpdateSprites(update.image_changes);
-        UpdatePositions(update.sprite_changes);
+        try {
+            UpdateSprites(update.image_changes);
+        } catch (System.Exception exception) {
+            Debug.LogError(exception);
+        }
+        try {
+            UpdatePositions(update.sprite_changes);
+        } catch (System.Exception exception) {
+            Debug.LogError(exception);
+        }
     }
 
     public void UpdateSprites(SpriteChange[] sprites) {
@@ -65,7 +73,7 @@ public class VisualManager : MonoBehaviour {
             if (Positions.ContainsKey(positions[i].sprite_id)) {
                 UpdateSpriteInScene(positions[i]);
             } else {
-                if (positions[i].sprite_id>SpritesInScene.Length) {
+                if (positions[i].sprite_id>=SpritesInScene.Length) {
                     DoubleSprites();
                 }
                 Positions.Add(positions[i].sprite_id, positions[i]);
