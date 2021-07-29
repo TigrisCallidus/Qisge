@@ -24,7 +24,7 @@ public class VisualManager : MonoBehaviour {
 
 
     //Limit of 1000 Sprites, this is about 3 per grid element, which is a lot. Normally 350 (number of grid elements) should be enough
-    SpriteRenderer[] SpritesInScene = new SpriteRenderer[1000];
+    SpriteRenderer[] SpritesInScene = new SpriteRenderer[1028];
 
     Dictionary<int, SpritePosition> Positions = new Dictionary<int, SpritePosition>();
     Dictionary<int, Sprite> UsedSprites = new Dictionary<int, Sprite>();
