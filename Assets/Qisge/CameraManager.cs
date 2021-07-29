@@ -17,12 +17,18 @@ public class CameraManager : MonoBehaviour {
     }
 
     public void UpdateCamera(CameraChanges changes) {
-        if (changes==null) {
-            return;
+
+        try {
+            if (changes == null) {
+                return;
+            }
+            CheckDefaultValues(changes);
+            SetValues(changes);
+            lastValues = changes;
+
+        } catch (System.Exception exception) {
+            Debug.LogError(exception);
         }
-        CheckDefaultValues(changes);
-        SetValues(changes);
-        lastValues = changes;
     }
 
     public void SetValues(CameraChanges changes) {

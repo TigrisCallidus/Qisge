@@ -38,6 +38,9 @@ public class TextManager : MonoBehaviour {
 
 
     public void UpdateTexts(TextUpdate[] texts) {
+
+        try {    
+
         if (texts==null) {
             return;
         }
@@ -48,6 +51,11 @@ public class TextManager : MonoBehaviour {
             } else {
                 CreateText(texts[i]);
             }
+        }
+
+        } catch (System.Exception exception) {
+
+            Debug.LogError(exception);
         }
 
     }

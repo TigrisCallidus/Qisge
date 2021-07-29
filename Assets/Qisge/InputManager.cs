@@ -15,8 +15,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InputManager : MonoBehaviour
-{
+public class InputManager : MonoBehaviour {
 
     Dictionary<ClickInput, int> clicks = new Dictionary<ClickInput, int>();
     List<ClickInput> uniqueClicks = new List<ClickInput>();
@@ -25,8 +24,7 @@ public class InputManager : MonoBehaviour
     List<KeyPress> uniquePresses = new List<KeyPress>();
 
 
-    public void ControlledUpdate()
-    {
+    public void ControlledUpdate() {
 
 
         if (Input.GetMouseButtonDown(0)) {
@@ -34,7 +32,7 @@ public class InputManager : MonoBehaviour
             Clickhappened(Input.mousePosition);
         }
 
-        if (Input.GetAxis("Horizontal")>0) {
+        if (Input.GetAxis("Horizontal") > 0) {
             //Debug.Log("Right received");
             PressHappened(KeyPress.right);
         } else if (Input.GetAxis("Horizontal") < 0) {
@@ -74,8 +72,8 @@ public class InputManager : MonoBehaviour
 
         if (!presses.ContainsKey(press)) {
             uniquePresses.Add(press);
-            presses.Add(press,1);
-        }else {
+            presses.Add(press, 1);
+        } else {
             presses[press] = presses[press] + 1;
         }
     }
@@ -86,7 +84,7 @@ public class InputManager : MonoBehaviour
 
         ClickInput click = GenerateClick(position);
 
-        if (click==null) {
+        if (click == null) {
             return;
         }
 
@@ -100,8 +98,8 @@ public class InputManager : MonoBehaviour
 
     public ClickInput GenerateClick(Vector3 position) {
 
-        float width = 1.0f/Screen.width;
-        float height = 1.0f/Screen.height;
+        float width = 1.0f / Screen.width;
+        float height = 1.0f / Screen.height;
 
         width = width * position.x;
         height = height * position.y;
@@ -110,7 +108,7 @@ public class InputManager : MonoBehaviour
         int y = Mathf.FloorToInt(height * VisualManager.maxHeight);
 
         ClickInput click = new ClickInput();
-        
+
         return null;
     }
 
@@ -124,20 +122,28 @@ public class InputManager : MonoBehaviour
     public InputFile Collect() {
 
         InputFile inputFile = new InputFile();
-        inputFile.clicks = uniqueClicks.ToArray();
-        inputFile.key_presses = uniquePresses.ToArray();
 
-        clicks.Clear();
-        uniqueClicks.Clear();
+        try {
 
-        presses.Clear();
-        uniquePresses.Clear();
+            inputFile.clicks = uniqueClicks.ToArray();
+            inputFile.key_presses = uniquePresses.ToArray();
 
-        inputFile.count = count;
+            clicks.Clear();
+            uniqueClicks.Clear();
 
-        //Debug.Log("sending message number: " + count + " at time: " + Time.time);
+            presses.Clear();
+            uniquePresses.Clear();
 
-        count++;
+            inputFile.count = count;
+
+            //Debug.Log("sending message number: " + count + " at time: " + Time.time);
+
+            count++;
+
+        } catch (System.Exception exception) {
+
+            Debug.LogError(exception);
+        }
 
         return inputFile;
     }

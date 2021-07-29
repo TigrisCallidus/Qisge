@@ -39,8 +39,21 @@ public class SoundManager : MonoBehaviour {
     }
 
     public void UpdateSounds(UpdateFile update) {
-        UpdateClips(update.sound_changes);
-        UpdateChannels(update.channel_changes);
+        try {
+            UpdateClips(update.sound_changes);
+
+        } catch (System.Exception exception) {
+
+            Debug.LogError(exception);
+        }
+
+        try {
+            UpdateChannels(update.channel_changes);
+
+        } catch (System.Exception exception) {
+
+            Debug.LogError(exception);
+        }
     }
 
     public void UpdateClips(SoundFile[] soundfiles) {
