@@ -24,7 +24,7 @@ public class VisualManager : MonoBehaviour {
 
 
     //Limit of 1000 Sprites, this is about 3 per grid element, which is a lot. Normally 350 (number of grid elements) should be enough
-    SpriteRenderer[] SpritesInScene = new SpriteRenderer[1000];
+    SpriteRenderer[] SpritesInScene = new SpriteRenderer[1028];
 
     Dictionary<int, SpritePosition> Positions = new Dictionary<int, SpritePosition>();
     Dictionary<int, Sprite> UsedSprites = new Dictionary<int, Sprite>();
@@ -65,6 +65,9 @@ public class VisualManager : MonoBehaviour {
             if (Positions.ContainsKey(positions[i].sprite_id)) {
                 UpdateSpriteInScene(positions[i]);
             } else {
+                if (positions[i].sprite_id>SpritesInScene.Length) {
+                    DoubleSprites();
+                }
                 Positions.Add(positions[i].sprite_id, positions[i]);
                 if (SpritesInScene[positions[i].sprite_id] == null) {
                     SpritesInScene[positions[i].sprite_id] = GenerateSpriteInScene(positions[i]);
@@ -73,6 +76,14 @@ public class VisualManager : MonoBehaviour {
                 }
             }
         }
+    }
+
+    void DoubleSprites() {
+        SpriteRenderer[] moreSprites = new SpriteRenderer[SpritesInScene.Length * 2];
+        for (int i = 0; i < SpritesInScene.Length; i++) {
+            moreSprites[i] = SpritesInScene[i];
+        }
+        SpritesInScene = moreSprites;
     }
 
     //TODO make stuff in parallel
