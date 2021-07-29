@@ -65,7 +65,7 @@ public class VisualManager : MonoBehaviour {
             if (Positions.ContainsKey(positions[i].sprite_id)) {
                 UpdateSpriteInScene(positions[i]);
             } else {
-                if (positions[i].sprite_id>SpritesInScene.Length) {
+                if (positions[i].sprite_id>=SpritesInScene.Length) {
                     DoubleSprites();
                 }
                 Positions.Add(positions[i].sprite_id, positions[i]);
