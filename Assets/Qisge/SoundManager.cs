@@ -44,7 +44,7 @@ public class SoundManager : MonoBehaviour {
 
         } catch (System.Exception exception) {
 
-            Debug.LogError(exception);
+            Debug.LogError("Clips exception: " + exception);
         }
 
         try {
@@ -52,7 +52,7 @@ public class SoundManager : MonoBehaviour {
 
         } catch (System.Exception exception) {
 
-            Debug.LogError(exception);
+            Debug.LogError("Channel exception: " +exception);
         }
     }
 

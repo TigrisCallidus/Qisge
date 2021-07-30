@@ -56,7 +56,14 @@ public class PythonJob : ThreadedJob {
 
 
         //setting real time (verry high) priority for the process
-        process.PriorityClass = ProcessPriorityClass.RealTime;
+        try {
+            process.PriorityClass = ProcessPriorityClass.RealTime;
+        } catch (System.Exception exception) {
+            //Ignore if it is a success message
+            if (!exception.Message.ToLower().Contains("success")) {
+                UnityEngine.Debug.LogError("Non success exception: " + exception);
+            }
+        }
 
         StreamReader reader = process.StandardOutput;
         string output = reader.ReadToEnd();

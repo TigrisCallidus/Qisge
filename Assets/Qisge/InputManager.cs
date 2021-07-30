@@ -142,7 +142,7 @@ public class InputManager : MonoBehaviour {
 
         } catch (System.Exception exception) {
 
-            Debug.LogError(exception);
+            Debug.LogError("Input exception: " +exception);
         }
 
         return inputFile;
