@@ -46,12 +46,12 @@ public class VisualManager : MonoBehaviour {
         try {
             UpdateSprites(update.image_changes);
         } catch (System.Exception exception) {
-            Debug.LogError(exception);
+            Debug.LogError("Sprite exception:" + exception);
         }
         try {
             UpdatePositions(update.sprite_changes);
         } catch (System.Exception exception) {
-            Debug.LogError(exception);
+            Debug.LogError("Sprite changes exception: " + exception);
         }
     }
 

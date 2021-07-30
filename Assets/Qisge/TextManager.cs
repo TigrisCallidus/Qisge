@@ -55,7 +55,7 @@ public class TextManager : MonoBehaviour {
 
         } catch (System.Exception exception) {
 
-            Debug.LogError(exception);
+            Debug.LogError("Text exception: " +exception);
         }
 
     }

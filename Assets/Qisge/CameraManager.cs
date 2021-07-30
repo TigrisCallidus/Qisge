@@ -27,7 +27,7 @@ public class CameraManager : MonoBehaviour {
             lastValues = changes;
 
         } catch (System.Exception exception) {
-            Debug.LogError(exception);
+            Debug.LogError("Camera exception: " +exception);
         }
     }
 
