@@ -144,6 +144,11 @@ public class GameManager : MonoBehaviour {
 
         string runFileContent = File.ReadAllText(RunFilePath);
         runFileContent=runFileContent.Replace(gameFolder, Config.GameFolder);
+
+        Debug.Log("Create new file");
+
+        Debug.Log(TempRunFilePath + " " + runFileContent);
+
         File.WriteAllText(TempRunFilePath, runFileContent);
 
 
@@ -155,6 +160,8 @@ public class GameManager : MonoBehaviour {
         File.WriteAllText(InputFilePath, string.Empty);
         File.WriteAllText(SpriteFilePath, string.Empty);
         //Debug.Log("input cleared");
+
+        Debug.Log("All files prepared");
     }
 
 
@@ -240,10 +247,13 @@ public class GameManager : MonoBehaviour {
 
     void prepareAndStartJob() {
 
+        Debug.Log("Start job");
+
         pythonJob = new PythonJob();
         pythonJob.PythonPath = PythonPath;
         pythonJob.FilePath = TempRunFilePath;
 
+        Debug.LogWarning(PythonPath + " " + TempRunFilePath);
 
         pythonJob.Start();
     }

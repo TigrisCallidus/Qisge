@@ -108,8 +108,12 @@ public class InputManager : MonoBehaviour {
         int y = Mathf.FloorToInt(height * VisualManager.maxHeight);
 
         ClickInput click = new ClickInput();
+        click.X = x;
+        click.Y = y;
 
-        return null;
+        return click;
+
+        //return null;
     }
 
     int count = 0;
